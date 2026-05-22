@@ -279,8 +279,25 @@ async function login() {
     return;
   }
 
-  setMessage('Login success. Refreshing...');
-  window.location.reload();
+  const profileResult = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('email', email.trim())
+    .maybeSingle();
+
+  if (profileResult.error) {
+    setMessage('Profile error: ' + profileResult.error.message);
+    return;
+  }
+
+  if (!profileResult.data) {
+    setMessage('Δεν βρέθηκε profile για αυτό το email.');
+    return;
+  }
+
+  setUser(data.user);
+  setProfile(profileResult.data);
+  setMessage('');
 }
 
   async function signUp() {
