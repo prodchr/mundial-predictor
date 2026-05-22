@@ -434,7 +434,7 @@ async function login() {
 
   const groups = useMemo(() => groupStandings(matches), [matches]);
 
-  if (!user || !profile) {
+  if (!user) {
     return (
       <main style={pageStyle}>
         <div style={{ maxWidth: 460, margin: '40px auto', ...cardStyle }}>
