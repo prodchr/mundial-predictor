@@ -1,0 +1,11 @@
+# Mundial Predictor
+
+Next.js + Supabase app.
+
+## Vercel env vars
+
+NEXT_PUBLIC_SUPABASE_URL=https://rripykxpydrcqnnhphiv.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_nx2bcLUHzmUjWRNndWdaCw_ycdQrvyu
+
+Admin login: ADMIN2026
+Invite code: mundial2026hermanos
