@@ -189,6 +189,7 @@ export default function MundialPredictor() {
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [tab, setTab] = useState('dashboard');
   const [message, setMessage] = useState('');
+  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -395,23 +396,92 @@ export default function MundialPredictor() {
         <div style={{ maxWidth: 460, margin: '40px auto', ...cardStyle }}>
           <div style={{ color: '#fbbf24', fontWeight: 900, letterSpacing: 2 }}>WORLD CUP 2026</div>
           <h1 style={{ fontSize: 38, margin: '8px 0 4px' }}>Mundial Predictor</h1>
-          <p style={{ color: '#cbd5e1' }}>Signup με email, username και invite code.</p>
+          <p style={{ color: '#cbd5e1' }}>Login ή δημιούργησε account.</p>
 
-          <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
-            <input style={inputStyle} placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <input style={inputStyle} placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button style={buttonStyle} onClick={login}>Login</button>
-          </div>
+<div style={{ display: 'flex', gap: 8, marginTop: 18 }}>
+  <button
+    style={{
+      ...buttonStyle,
+      flex: 1,
+      background: authMode === 'login' ? '#fbbf24' : 'rgba(255,255,255,.1)',
+      color: authMode === 'login' ? '#020617' : '#fff',
+    }}
+    onClick={() => setAuthMode('login')}
+  >
+    Login
+  </button>
 
-          <div style={{ height: 1, background: 'rgba(255,255,255,.15)', margin: '20px 0' }} />
+  <button
+    style={{
+      ...buttonStyle,
+      flex: 1,
+      background: authMode === 'signup' ? '#22c55e' : 'rgba(255,255,255,.1)',
+      color: authMode === 'signup' ? '#020617' : '#fff',
+    }}
+    onClick={() => setAuthMode('signup')}
+  >
+    Sign up
+  </button>
+</div>
 
-          <div style={{ display: 'grid', gap: 10 }}>
-            <input style={inputStyle} placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <input style={inputStyle} placeholder="Invite code" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} />
-            <button style={{ ...buttonStyle, background: '#22c55e' }} onClick={signUp}>Create account</button>
-          </div>
+{authMode === 'login' && (
+  <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
+    <input
+      style={inputStyle}
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
+    <input
+      style={inputStyle}
+      placeholder="Password"
+      type="password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <button style={buttonStyle} onClick={login}>
+      Login
+    </button>
+  </div>
+)}
 
-          {message && <p style={{ color: '#fde68a', marginTop: 16 }}>{message}</p>}
+{authMode === 'signup' && (
+  <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
+    <input
+      style={inputStyle}
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
+    <input
+      style={inputStyle}
+      placeholder="Password"
+      type="password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <input
+      style={inputStyle}
+      placeholder="Username"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+    />
+    <input
+      style={inputStyle}
+      placeholder="Invite code"
+      value={inviteCode}
+      onChange={(e) => setInviteCode(e.target.value)}
+    />
+    <button
+      style={{ ...buttonStyle, background: '#22c55e' }}
+      onClick={signUp}
+    >
+      Create account
+    </button>
+  </div>
+)}
+
+{message && <p style={{ color: '#fde68a', marginTop: 16 }}>{message}</p>}
         </div>
       </main>
     );
