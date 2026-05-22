@@ -1,4 +1,7 @@
-export const metadata = { title: 'Mundial Predictor' };
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="el"><body style={{margin:0}}>{children}</body></html>;
+export default function Home() {
+  return (
+    <main style={{ padding: 40 }}>
+      <h1>Mundial Predictor</h1>
+    </main>
+  );
 }
