@@ -1,2 +1,4 @@
-NEXT_PUBLIC_SUPABASE_URL=https://rripykxpydrcqnnhphiv.supabase.co
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_nx2bcLUHzmUjWRNndWdaCw_ycdQrvyu
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+module.exports = nextConfig;
