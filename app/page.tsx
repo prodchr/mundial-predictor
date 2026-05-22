@@ -236,7 +236,7 @@ export default function MundialPredictor() {
       .from('profiles')
       .select('*')
       .eq('id', currentUser.id)
-      .single();
+      .maybeSingle();
 
     if (profileResult.error) {
       setMessage('Profile error: ' + profileResult.error.message);
