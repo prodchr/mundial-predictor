@@ -206,25 +206,49 @@ export default function MundialPredictor() {
     kickoff_at: '',
   });
 
-  async function loadEverything(activeUser?: User | null) {
-    const currentUser = activeUser ?? user;
+ async function loadEverything(activeUser?: User | null) {
+  const currentUser = activeUser ?? user;
 
-    const [matchesResult, predictionsResult, profilesResult] = await Promise.all([
-      supabase.from('matches').select('*').order('match_no'),
-      supabase.from('predictions').select('*'),
-      supabase.from('profiles').select('*').order('username'),
-    ]);
-
-    setMatches(matchesResult.data || []);
-    setPredictions(predictionsResult.data || []);
-    setProfiles(profilesResult.data || []);
-
-    if (currentUser) {
-      const profileResult = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
-      if (profileResult.data) setProfile(profileResult.data);
-    }
+  const matchesResult = await supabase.from('matches').select('*').order('match_no');
+  if (matchesResult.error) {
+    setMessage('Matches error: ' + matchesResult.error.message);
+    return;
   }
 
+  const predictionsResult = await supabase.from('predictions').select('*');
+  if (predictionsResult.error) {
+    setMessage('Predictions error: ' + predictionsResult.error.message);
+    return;
+  }
+
+  const profilesResult = await supabase.from('profiles').select('*').order('username');
+  if (profilesResult.error) {
+    setMessage('Profiles error: ' + profilesResult.error.message);
+    return;
+  }
+
+  setMatches(matchesResult.data || []);
+  setPredictions(predictionsResult.data || []);
+  setProfiles(profilesResult.data || []);
+
+  if (currentUser) {
+    const profileResult = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', currentUser.id)
+      .single();
+
+    if (profileResult.error) {
+      setMessage('Profile error: ' + profileResult.error.message);
+      return;
+    }
+
+    if (profileResult.data) {
+      setProfile(profileResult.data);
+      setMessage('');
+    }
+  }
+}
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       const sessionUser = data.session?.user ?? null;
