@@ -242,10 +242,18 @@ export default function MundialPredictor() {
   }, []);
 
   async function login() {
-    setMessage('');
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) setMessage(error.message);
-  }
+  setMessage('');
+
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: window.location.origin,
+    },
+  });
+
+  if (error) setMessage(error.message);
+  else setMessage('Σου στείλαμε login link στο email.');
+}
 
   async function signUp() {
     setMessage('');
