@@ -279,9 +279,8 @@ async function login() {
     return;
   }
 
-  setMessage('Login success. Φορτώνω...');
-  setUser(data.user);
-  await loadEverything(data.user);
+  setMessage('Login success. Refreshing...');
+  window.location.reload();
 }
 
   async function signUp() {
