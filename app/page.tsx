@@ -282,7 +282,7 @@ async function login() {
   const profileResult = await supabase
     .from('profiles')
     .select('*')
-    .eq('email', email.trim())
+    .eq('id', data.user.id)
     .maybeSingle();
 
   if (profileResult.error) {
@@ -291,7 +291,7 @@ async function login() {
   }
 
   if (!profileResult.data) {
-    setMessage('Δεν βρέθηκε profile για αυτό το email.');
+    setMessage('No profile for auth user id: ' + data.user.id);
     return;
   }
 
