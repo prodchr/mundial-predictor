@@ -42,7 +42,7 @@ function isLocked(match: Match) {
   return new Date() >= new Date(match.kickoff_at);
 }
 function isPredictionComplete(prediction?: Prediction) {
-  return prediction?.pred_home !== null && prediction?.pred_away !== null;
+  return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
 }
 function predictionPoints(match: Match, prediction?: Prediction) {
   if (!prediction) return 0;
