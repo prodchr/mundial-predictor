@@ -250,6 +250,7 @@ if (currentUser) {
     setMessage('No profile found.');
   }
 }
+}
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       const sessionUser = data.session?.user ?? null;
