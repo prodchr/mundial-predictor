@@ -39,7 +39,21 @@ type Prediction = {
 };
 
 function isLocked(match: Match) {
-  return new Date() >= new Date(match.kickoff_at);
+  const now = new Date();
+
+  const kickoff = new Date(
+    new Date(match.kickoff_at).toLocaleString('en-US', {
+      timeZone: 'Asia/Nicosia',
+    })
+  );
+
+  const cyNow = new Date(
+    now.toLocaleString('en-US', {
+      timeZone: 'Asia/Nicosia',
+    })
+  );
+
+  return cyNow >= kickoff;
 }
 function isPredictionComplete(prediction?: Prediction) {
   return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
