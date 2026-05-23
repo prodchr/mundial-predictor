@@ -231,22 +231,23 @@ export default function MundialPredictor() {
   setPredictions(predictionsResult.data || []);
   setProfiles(profilesResult.data || []);
 
-  if (currentUser) {
-    const profileResult = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', currentUser.id)
-      .maybeSingle();
+if (currentUser) {
+  const profileResult = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', currentUser.id)
+    .limit(1);
 
-    if (profileResult.error) {
-      setMessage('Profile error: ' + profileResult.error.message);
-      return;
-    }
+  if (profileResult.error) {
+    setMessage('Profile error: ' + profileResult.error.message);
+    return;
+  }
 
-    if (profileResult.data) {
-      setProfile(profileResult.data);
-      setMessage('');
-    }
+  if (profileResult.data && profileResult.data.length > 0) {
+    setProfile(profileResult.data[0]);
+    setMessage('');
+  } else {
+    setMessage('No profile found.');
   }
 }
   useEffect(() => {
