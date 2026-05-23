@@ -41,7 +41,9 @@ type Prediction = {
 function isLocked(match: Match) {
   return new Date() >= new Date(match.kickoff_at);
 }
-
+function isPredictionComplete(prediction?: Prediction) {
+  return prediction?.pred_home !== null && prediction?.pred_away !== null;
+}
 function predictionPoints(match: Match, prediction?: Prediction) {
   if (!prediction) return 0;
   if (
@@ -429,7 +431,10 @@ async function login() {
               : 0
           );
         }, 0),
-        submitted: matches.reduce((sum, match) => sum + (predictionFor(profile.id, match.id) ? 1 : 0), 0),
+        submitted: matches.reduce(
+  (sum, match) => sum + (isPredictionComplete(predictionFor(profile.id, match.id)) ? 1 : 0),
+  0
+),
       }))
       .sort((a, b) => b.points - a.points || b.exacts - a.exacts || a.username.localeCompare(b.username));
   }, [profiles, matches, predictions]);
@@ -638,7 +643,9 @@ async function login() {
                       return (
                         <div key={player.id} style={{ padding: 10, borderRadius: 14, background: 'rgba(255,255,255,.08)' }}>
                           <b>@{player.username}</b><br />
-                          {prediction ? (visible ? `${prediction.pred_home} - ${prediction.pred_away}` : 'Submitted ✅') : 'Not submitted ⏳'}
+                          {isPredictionComplete(prediction)
+  ? (visible ? `${prediction!.pred_home} - ${prediction!.pred_away}` : 'Submitted ✅')
+  : 'Not submitted ⏳'}
                         </div>
                       );
                     })}
