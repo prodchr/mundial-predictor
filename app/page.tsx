@@ -640,7 +640,7 @@ async function deleteMatch(match: Match) {
         <nav style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
           {tabs.map((item) => (
             <button key={item} onClick={() => setTab(item)} style={{ ...buttonStyle, background: tab === item ? '#fbbf24' : 'rgba(255,255,255,.1)', color: tab === item ? '#020617' : '#fff' }}>
-              {item}
+              {item.charAt(0).toUpperCase() + item.slice(1)}
             </button>
           ))}
         </nav>
