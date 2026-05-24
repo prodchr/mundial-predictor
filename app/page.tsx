@@ -248,6 +248,7 @@ const tdStyle: React.CSSProperties = {
   borderTop: '1px solid rgba(255,255,255,.12)',
   padding: '12px 10px',
   verticalAlign: 'middle',
+  whiteSpace: 'nowrap',
 };
 
 const thStyle: React.CSSProperties = {
