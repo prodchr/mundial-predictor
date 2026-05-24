@@ -630,7 +630,6 @@ async function deleteMatch(match: Match) {
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap', marginBottom: 18 }}>
           <div>
-            <div style={{ color: '#fbbf24', fontWeight: 900, letterSpacing: 2 }}>WORLD CUP 2026</div>
             <h1 style={{ fontSize: 36, margin: '4px 0' }}>Score Predictor</h1>
             <div style={{ color: '#cbd5e1' }}>@{profile.username} · {profile.role === 'admin' ? 'Admin' : 'Player'}</div>
           </div>
