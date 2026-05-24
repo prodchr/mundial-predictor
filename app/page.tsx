@@ -70,17 +70,7 @@ function formatCyprusTime(value: string) {
 function isPredictionComplete(prediction?: Prediction) {
   return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
 }
-function formatCyprusTime(value: string) {
-  return new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Nicosia',
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(new Date(value));
-}
+
 function predictionPoints(match: Match, prediction?: Prediction) {
   if (!prediction) return 0;
   if (
