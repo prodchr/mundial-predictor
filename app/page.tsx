@@ -530,7 +530,7 @@ async function deleteMatch(match: Match) {
       <main style={pageStyle}>
         <div style={{ maxWidth: 460, margin: '40px auto', ...cardStyle }}>
           <div style={{ color: '#fbbf24', fontWeight: 900, letterSpacing: 2 }}>WORLD CUP 2026</div>
-          <h1 style={{ fontSize: 38, margin: '8px 0 4px' }}>Mundial Predictor</h1>
+          <h1 style={{ fontSize: 38, margin: '8px 0 4px' }}>Score Predictor</h1>
           <p style={{ color: '#cbd5e1' }}>Login ή δημιούργησε account.</p>
 
 <div style={{ display: 'flex', gap: 8, marginTop: 18 }}>
@@ -631,7 +631,7 @@ async function deleteMatch(match: Match) {
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap', marginBottom: 18 }}>
           <div>
             <div style={{ color: '#fbbf24', fontWeight: 900, letterSpacing: 2 }}>WORLD CUP 2026</div>
-            <h1 style={{ fontSize: 36, margin: '4px 0' }}>Mundial Predictor</h1>
+            <h1 style={{ fontSize: 36, margin: '4px 0' }}>Score Predictor</h1>
             <div style={{ color: '#cbd5e1' }}>@{profile.username} · {profile.role === 'admin' ? 'Admin' : 'Player'}</div>
           </div>
           <button style={{ ...buttonStyle, background: '#334155', color: '#fff' }} onClick={logout}>Logout</button>
