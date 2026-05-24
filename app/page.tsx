@@ -775,7 +775,139 @@ async function deleteMatch(match: Match) {
               </div>
               <button style={{ ...buttonStyle, marginTop: 10 }} onClick={addSingleMatch}>Add match</button>
             </div>
+<div style={{ marginTop: 24 }}>
+  <h2>Manage matches</h2>
 
+  <div style={{ display: 'grid', gap: 12 }}>
+    {matches.map((match) => {
+      const draft = editingMatches[match.id] || {};
+
+      return (
+        <div
+          key={match.id}
+          style={{
+            ...cardStyle,
+            padding: 16,
+            display: 'grid',
+            gap: 10,
+          }}
+        >
+          <div style={{ fontWeight: 800 }}>
+            #{match.match_no} — {match.home_team} vs {match.away_team}
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+            <input
+              style={inputStyle}
+              placeholder="Match no"
+              value={draft.match_no ?? match.match_no}
+              onChange={(e) =>
+                setEditingMatches((prev) => ({
+                  ...prev,
+                  [match.id]: {
+                    ...prev[match.id],
+                    match_no: Number(e.target.value),
+                  },
+                }))
+              }
+            />
+
+            <input
+              style={inputStyle}
+              placeholder="Day"
+              value={draft.match_day ?? match.match_day}
+              onChange={(e) =>
+                setEditingMatches((prev) => ({
+                  ...prev,
+                  [match.id]: {
+                    ...prev[match.id],
+                    match_day: e.target.value,
+                  },
+                }))
+              }
+            />
+
+            <input
+              style={inputStyle}
+              placeholder="Group"
+              value={draft.group_name ?? match.group_name ?? ''}
+              onChange={(e) =>
+                setEditingMatches((prev) => ({
+                  ...prev,
+                  [match.id]: {
+                    ...prev[match.id],
+                    group_name: e.target.value,
+                  },
+                }))
+              }
+            />
+
+            <input
+              style={inputStyle}
+              placeholder="Home"
+              value={draft.home_team ?? match.home_team}
+              onChange={(e) =>
+                setEditingMatches((prev) => ({
+                  ...prev,
+                  [match.id]: {
+                    ...prev[match.id],
+                    home_team: e.target.value,
+                  },
+                }))
+              }
+            />
+
+            <input
+              style={inputStyle}
+              placeholder="Away"
+              value={draft.away_team ?? match.away_team}
+              onChange={(e) =>
+                setEditingMatches((prev) => ({
+                  ...prev,
+                  [match.id]: {
+                    ...prev[match.id],
+                    away_team: e.target.value,
+                  },
+                }))
+              }
+            />
+
+            <input
+              style={inputStyle}
+              placeholder="Kickoff"
+              value={draft.kickoff_at ?? match.kickoff_at}
+              onChange={(e) =>
+                setEditingMatches((prev) => ({
+                  ...prev,
+                  [match.id]: {
+                    ...prev[match.id],
+                    kickoff_at: e.target.value,
+                  },
+                }))
+              }
+            />
+          </div>
+
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button
+              style={buttonStyle}
+              onClick={() => updateMatch(match)}
+            >
+              Save
+            </button>
+
+            <button
+              style={{ ...buttonStyle, background: '#aa2222' }}
+              onClick={() => deleteMatch(match)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
             <div style={cardStyle}>
               <h2>Admin: Bulk import</h2>
               <p style={{ color: '#cbd5e1' }}>Format ανά γραμμή: match_no,match_day,group,home,away,kickoff_at</p>
