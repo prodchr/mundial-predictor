@@ -94,6 +94,26 @@ function country(code: string) {
     KSA: { name: 'Saudi Arabia', flag: 'https://flagcdn.com/w20/sa.png' },
     URU: { name: 'Uruguay', flag: 'https://flagcdn.com/w20/uy.png' },
 
+    FRA: { name: 'France', flag: 'https://flagcdn.com/w20/fr.png' },
+    SEN: { name: 'Senegal', flag: 'https://flagcdn.com/w20/sn.png' },
+    IRQ: { name: 'Iraq', flag: 'https://flagcdn.com/w20/iq.png' },
+    NOR: { name: 'Norway', flag: 'https://flagcdn.com/w20/no.png' },
+    
+    ARG: { name: 'Argentina', flag: 'https://flagcdn.com/w20/ar.png' },
+    ALG: { name: 'Algeria', flag: 'https://flagcdn.com/w20/dz.png' },
+    AUT: { name: 'Austria', flag: 'https://flagcdn.com/w20/at.png' },
+    JOR: { name: 'Jordan', flag: 'https://flagcdn.com/w20/jo.png' },
+    
+    POR: { name: 'Portugal', flag: 'https://flagcdn.com/w20/pt.png' },
+    DRC: { name: 'Congo DR', flag: 'https://flagcdn.com/w20/cd.png' },
+    UZB: { name: 'Uzbekistan', flag: 'https://flagcdn.com/w20/uz.png' },
+    COL: { name: 'Colombia', flag: 'https://flagcdn.com/w20/co.png' },
+    
+    ENG: { name: 'England', flag: 'https://flagcdn.com/w20/gb-eng.png' },
+    CRO: { name: 'Croatia', flag: 'https://flagcdn.com/w20/hr.png' },
+    GHA: { name: 'Ghana', flag: 'https://flagcdn.com/w20/gh.png' },
+    PAN: { name: 'Panama', flag: 'https://flagcdn.com/w20/pa.png' },
+
     TBD: { name: 'TBD', flag: '' },
   }
 
