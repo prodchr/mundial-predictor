@@ -39,26 +39,11 @@ type Prediction = {
 };
 
 function isLocked(match: Match) {
-  const now = new Date();
-
-  const kickoff = new Date(
-    new Date(match.kickoff_at).toLocaleString('en-US', {
-      timeZone: 'Asia/Nicosia',
-    })
-  );
-
-  const cyNow = new Date(
-    now.toLocaleString('en-US', {
-      timeZone: 'Asia/Nicosia',
-    })
-  );
-
-  return cyNow >= kickoff;
+  return new Date() >= new Date(match.kickoff_at);
 }
 
-function formatCyprusTime(value: string) {
+function formatLocalTime(value: string) {
   return new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Nicosia',
     weekday: 'short',
     day: '2-digit',
     month: 'short',
@@ -716,7 +701,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
                   {matches.map((match) => (
                     <tr key={match.id}>
                       <td style={tdStyle}>{match.match_no}</td>
-                      <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
+                      <td style={tdStyle}>{formatLocalTime(match.kickoff_at)} Local</td>
                       <td style={tdStyle}>{match.group_name || '-'}</td>
                       <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                       <td style={tdStyle}>{match.home_score === null ? '-' : match.home_score} - {match.away_score === null ? '-' : match.away_score}</td>
@@ -740,7 +725,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
                     const locked = isLocked(match);
                     return (
                       <tr key={match.id}>
-                        <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
+                        <td style={tdStyle}>{formatLocalTime(match.kickoff_at)} Local</td>
                         <td style={tdStyle}>{match.group_name}</td>
                         <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>  {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                         <td style={tdStyle}>
@@ -766,7 +751,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
             <div style={{ display: 'grid', gap: 14 }}>
               {matches.map((match) => (
                 <div key={match.id} style={{ background: 'rgba(255,255,255,.06)', borderRadius: 18, padding: 14 }}>
-                  <h3>{formatCyprusTime(match.kickoff_at)} CY · <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></h3>
+                  <h3>{formatLocalTime(match.kickoff_at)} Local · <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></h3>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 8 }}>
                     {profiles.filter((player) => player.role !== 'admin').map((player) => {
                       const prediction = predictionFor(player.id, match.id);
