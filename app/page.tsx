@@ -213,6 +213,7 @@ export default function MundialPredictor() {
   const [inviteCode, setInviteCode] = useState('');
 
   const [bulkText, setBulkText] = useState('');
+  const [editingMatches, setEditingMatches] = useState<Record<number, Partial<Match>>>({});
   const [singleMatch, setSingleMatch] = useState({
     match_no: '',
     match_day: '',
@@ -400,7 +401,63 @@ async function login() {
       await loadEverything();
     }
   }
+async function updateMatch(match: Match) {
+  if (profile?.role !== 'admin') return;
 
+  const draft = editingMatches[match.id];
+  if (!draft) return;
+
+  const payload: any = {
+    match_no: draft.match_no ?? match.match_no,
+    match_day: draft.match_day ?? match.match_day,
+    group_name: draft.group_name ?? match.group_name,
+    home_team: draft.home_team ?? match.home_team,
+    away_team: draft.away_team ?? match.away_team,
+    kickoff_at: draft.kickoff_at ?? match.kickoff_at,
+  };
+
+  const { error } = await supabase
+    .from('matches')
+    .update(payload)
+    .eq('id', match.id);
+
+  if (error) {
+    setMessage(error.message);
+    return;
+  }
+
+  setEditingMatches((prev) => {
+    const next = { ...prev };
+    delete next[match.id];
+    return next;
+  });
+
+  setMessage('Match updated.');
+  await loadEverything();
+}
+
+async function deleteMatch(match: Match) {
+  if (profile?.role !== 'admin') return;
+
+  const confirmed = window.confirm(
+    `Delete ${match.home_team} vs ${match.away_team}? This will also delete predictions for this match.`
+  );
+
+  if (!confirmed) return;
+
+  const { error } = await supabase
+    .from('matches')
+    .delete()
+    .eq('id', match.id);
+
+  if (error) {
+    setMessage(error.message);
+    return;
+  }
+
+  setMessage('Match deleted.');
+  await loadEverything();
+}
   async function bulkImport() {
     if (profile?.role !== 'admin') return;
 
