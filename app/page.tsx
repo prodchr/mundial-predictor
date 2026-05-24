@@ -793,7 +793,18 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
                 value={prediction?.pred_away ?? ''}
                 onChange={(e) => savePrediction(match, 'pred_away', e.target.value)}
               />
-            </div>
+            <button
+  disabled={locked}
+  style={{
+    ...buttonStyle,
+    padding: '10px 14px',
+    opacity: locked ? 0.6 : 1,
+  }}
+  onClick={() => setMessage('Prediction submitted ✅')}
+>
+  Submit
+</button>
+</div>
 
             <div style={{ display: 'grid', gap: 6 }}>
               <div>{locked ? '🔒 Locked' : '🟢 Open'}</div>
