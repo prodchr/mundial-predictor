@@ -69,50 +69,50 @@ function formatCyprusTime(value: string) {
 }
 function country(code: string) {
   const map: Record<string, { name: string; flag: string }> = {
-  MEX: { name: 'Mexico', flag: '🇲🇽' },
-  RSA: { name: 'South Africa', flag: '🇿🇦' },
-  KOR: { name: 'South Korea', flag: '🇰🇷' },
-  CZE: { name: 'Czechia', flag: '🇨🇿' },
+    MEX: { name: 'Mexico', flag: 'https://flagcdn.com/w20/mx.png' },
+    RSA: { name: 'South Africa', flag: 'https://flagcdn.com/w20/za.png' },
+    KOR: { name: 'South Korea', flag: 'https://flagcdn.com/w20/kr.png' },
+    CZE: { name: 'Czechia', flag: 'https://flagcdn.com/w20/cz.png' },
 
-  CAN: { name: 'Canada', flag: '🇨🇦' },
-  BIH: { name: 'Bosnia & Herzegovina', flag: '🇧🇦' },
-  QAT: { name: 'Qatar', flag: '🇶🇦' },
-  SUI: { name: 'Switzerland', flag: '🇨🇭' },
+    CAN: { name: 'Canada', flag: 'https://flagcdn.com/w20/ca.png' },
+    BIH: { name: 'Bosnia & Herzegovina', flag: 'https://flagcdn.com/w20/ba.png' },
+    QAT: { name: 'Qatar', flag: 'https://flagcdn.com/w20/qa.png' },
+    SUI: { name: 'Switzerland', flag: 'https://flagcdn.com/w20/ch.png' },
 
-  BRA: { name: 'Brazil', flag: '🇧🇷' },
-  MAR: { name: 'Morocco', flag: '🇲🇦' },
-  HAI: { name: 'Haiti', flag: '🇭🇹' },
-  SCO: { name: 'Scotland', flag: '🏴' },
+    BRA: { name: 'Brazil', flag: 'https://flagcdn.com/w20/br.png' },
+    MAR: { name: 'Morocco', flag: 'https://flagcdn.com/w20/ma.png' },
+    HAI: { name: 'Haiti', flag: 'https://flagcdn.com/w20/ht.png' },
+    SCO: { name: 'Scotland', flag: 'https://flagcdn.com/w20/gb-sct.png' },
 
-  USA: { name: 'United States', flag: '🇺🇸' },
-  PAR: { name: 'Paraguay', flag: '🇵🇾' },
-  AUS: { name: 'Australia', flag: '🇦🇺' },
-  TUR: { name: 'Türkiye', flag: '🇹🇷' },
+    USA: { name: 'United States', flag: 'https://flagcdn.com/w20/us.png' },
+    PAR: { name: 'Paraguay', flag: 'https://flagcdn.com/w20/py.png' },
+    AUS: { name: 'Australia', flag: 'https://flagcdn.com/w20/au.png' },
+    TUR: { name: 'Türkiye', flag: 'https://flagcdn.com/w20/tr.png' },
 
-  GER: { name: 'Germany', flag: '🇩🇪' },
-  CUW: { name: 'Curaçao', flag: '🇨🇼' },
-  CIV: { name: 'Ivory Coast', flag: '🇨🇮' },
-  ECU: { name: 'Ecuador', flag: '🇪🇨' },
+    GER: { name: 'Germany', flag: 'https://flagcdn.com/w20/de.png' },
+    CUW: { name: 'Curaçao', flag: 'https://flagcdn.com/w20/cw.png' },
+    CIV: { name: 'Ivory Coast', flag: 'https://flagcdn.com/w20/ci.png' },
+    ECU: { name: 'Ecuador', flag: 'https://flagcdn.com/w20/ec.png' },
 
-  NED: { name: 'Netherlands', flag: '🇳🇱' },
-  JPN: { name: 'Japan', flag: '🇯🇵' },
-  SWE: { name: 'Sweden', flag: '🇸🇪' },
-  TUN: { name: 'Tunisia', flag: '🇹🇳' },
+    NED: { name: 'Netherlands', flag: 'https://flagcdn.com/w20/nl.png' },
+    JPN: { name: 'Japan', flag: 'https://flagcdn.com/w20/jp.png' },
+    SWE: { name: 'Sweden', flag: 'https://flagcdn.com/w20/se.png' },
+    TUN: { name: 'Tunisia', flag: 'https://flagcdn.com/w20/tn.png' },
 
-  BEL: { name: 'Belgium', flag: '🇧🇪' },
-  EGY: { name: 'Egypt', flag: '🇪🇬' },
-  IRN: { name: 'Iran', flag: '🇮🇷' },
-  NZL: { name: 'New Zealand', flag: '🇳🇿' },
+    BEL: { name: 'Belgium', flag: 'https://flagcdn.com/w20/be.png' },
+    EGY: { name: 'Egypt', flag: 'https://flagcdn.com/w20/eg.png' },
+    IRN: { name: 'Iran', flag: 'https://flagcdn.com/w20/ir.png' },
+    NZL: { name: 'New Zealand', flag: 'https://flagcdn.com/w20/nz.png' },
 
-  ESP: { name: 'Spain', flag: '🇪🇸' },
-  CPV: { name: 'Cape Verde', flag: '🇨🇻' },
-  KSA: { name: 'Saudi Arabia', flag: '🇸🇦' },
-  URU: { name: 'Uruguay', flag: '🇺🇾' },
+    ESP: { name: 'Spain', flag: 'https://flagcdn.com/w20/es.png' },
+    CPV: { name: 'Cape Verde', flag: 'https://flagcdn.com/w20/cv.png' },
+    KSA: { name: 'Saudi Arabia', flag: 'https://flagcdn.com/w20/sa.png' },
+    URU: { name: 'Uruguay', flag: 'https://flagcdn.com/w20/uy.png' },
 
-  TBD: { name: 'TBD', flag: '❓' },
-}
+    TBD: { name: 'TBD', flag: '' },
+  }
 
-  return map[code] || { name: code, flag: '🏳️' };
+  return map[code] || { name: code, flag: '' }
 }
 function isPredictionComplete(prediction?: Prediction) {
   return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
