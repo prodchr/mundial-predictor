@@ -269,6 +269,9 @@ export default function MundialPredictor() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
+  const [draftPredictions, setDraftPredictions] = useState<
+  Record<number, { pred_home: string; pred_away: string }>
+>({});
   const [tab, setTab] = useState('Dashboard');
   const [message, setMessage] = useState('');
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
@@ -783,15 +786,31 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
               <input
                 disabled={locked}
                 style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }}
-                value={prediction?.pred_home ?? ''}
-                onChange={(e) => savePrediction(match, 'pred_home', e.target.value)}
+               value={draftPredictions[match.id]?.pred_home ?? prediction?.pred_home ?? ''}
+onChange={(e) =>
+  setDraftPredictions((prev) => ({
+    ...prev,
+    [match.id]: {
+      pred_home: e.target.value,
+      pred_away: prev[match.id]?.pred_away ?? String(prediction?.pred_away ?? ''),
+    },
+  }))
+}
               />
               <span>-</span>
               <input
                 disabled={locked}
                 style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }}
-                value={prediction?.pred_away ?? ''}
-                onChange={(e) => savePrediction(match, 'pred_away', e.target.value)}
+                value={draftPredictions[match.id]?.pred_away ?? prediction?.pred_away ?? ''}
+onChange={(e) =>
+  setDraftPredictions((prev) => ({
+    ...prev,
+    [match.id]: {
+      pred_home: prev[match.id]?.pred_home ?? String(prediction?.pred_home ?? ''),
+      pred_away: e.target.value,
+    },
+  }))
+}
               />
             <button
   disabled={locked}
@@ -800,7 +819,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     padding: '10px 14px',
     opacity: locked ? 0.6 : 1,
   }}
-  onClick={() => setMessage('Prediction submitted ✅')}
+  onClick={async () => {   const draft = draftPredictions[match.id];    await savePrediction(match, 'pred_home', draft?.pred_home ?? String(prediction?.pred_home ?? ''));   await savePrediction(match, 'pred_away', draft?.pred_away ?? String(prediction?.pred_away ?? ''));    setMessage('Prediction submitted ✅'); }}
 >
   Submit
 </button>
