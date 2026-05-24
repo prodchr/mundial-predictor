@@ -809,7 +809,14 @@ async function deleteMatch(match: Match) {
                   <tbody>
                     {rows.map((row: any) => (
                       <tr key={row.team}>
-                        <td style={tdStyle}><b>{row.team}</b></td>
+                        <td style={tdStyle}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    {country(row.team).flag && (
+      <img src={country(row.team).flag} width={20} height={14} alt="" />
+    )}
+    <b>{country(row.team).name}</b>
+  </div>
+</td>
                         <td style={tdStyle}>{row.P}</td>
                         <td style={tdStyle}>{row.GD}</td>
                         <td style={{ ...tdStyle, color: '#fbbf24', fontWeight: 900 }}>{row.Pts}</td>
