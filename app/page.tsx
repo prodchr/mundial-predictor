@@ -694,7 +694,7 @@ async function deleteMatch(match: Match) {
         {message && <div style={{ ...cardStyle, borderColor: '#fbbf24', marginBottom: 16, color: '#fde68a' }}>{message}</div>}
 
         {tab === 'Dashboard' && (
-          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
+          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(340px,1fr))', gap: 14 }}>
             {leaderboard.slice(0, 3).map((player, index) => (
               <div key={player.id} style={{ ...cardStyle, textAlign: 'center' }}>
                 <div style={{ fontSize: 52 }}>{index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}</div>
