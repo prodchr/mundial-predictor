@@ -299,7 +299,7 @@ if (currentUser) {
   }, []);
 
 async function login() {
-  setMessage('Προσπαθώ να κάνω login...');
+  setMessage('Logging in...');
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email.trim(),
@@ -337,12 +337,12 @@ async function login() {
 
     const settings = await supabase.from('app_settings').select('invite_code').eq('id', 1).single();
     if (!settings.data || settings.data.invite_code !== inviteCode.trim()) {
-      setMessage('Λάθος invite code.');
+      setMessage('Invalid invite code.');
       return;
     }
 
     if (!username.trim()) {
-      setMessage('Βάλε username.');
+      setMessage('Please enter a username.');
       return;
     }
 
@@ -353,7 +353,7 @@ async function login() {
     });
 
     if (error) setMessage(error.message);
-    else setMessage('Signup έγινε. Αν ζητήσει email confirmation, έλεγξε το email σου και μετά κάνε login.');
+    else setMessage('Signup successful. If email confirmation is required, check your inbox and then log in.');
   }
 
   async function logout() {
@@ -409,7 +409,7 @@ async function login() {
 
     if (error) setMessage(error.message);
     else {
-      setMessage('Ο αγώνας προστέθηκε.');
+      setMessage('Match added successfully.');
       setSingleMatch({ match_no: '', match_day: '', group_name: '', home_team: '', away_team: '', kickoff_at: '' });
       await loadEverything();
     }
@@ -530,7 +530,7 @@ async function deleteMatch(match: Match) {
       <main style={pageStyle}>
         <div style={{ maxWidth: 460, margin: '40px auto', ...cardStyle }}>
           <h1 style={{ fontSize: 38, margin: '8px 0 4px' }}>Score Predictor</h1>
-          <p style={{ color: '#cbd5e1' }}>Login ή δημιούργησε account.</p>
+          <p style={{ color: '#cbd5e1' }}>Login or create an account.</p>
 
 <div style={{ display: 'flex', gap: 8, marginTop: 18 }}>
   <button
@@ -682,7 +682,7 @@ async function deleteMatch(match: Match) {
 
         {tab === 'Predictions' && (
           <section style={cardStyle}>
-            <h2>Οι προβλέψεις μου</h2>
+            <h2>My Predictions</h2>
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <tbody>
@@ -713,7 +713,7 @@ async function deleteMatch(match: Match) {
         {tab === 'Players' && (
           <section style={cardStyle}>
             <h2>Players submission status</h2>
-            <p style={{ color: '#cbd5e1' }}>Πριν το kickoff φαίνεται μόνο αν συμπληρώθηκε. Μετά το kickoff φαίνεται και το σκορ.</p>
+            <p style={{ color: '#cbd5e1' }}>Before kickoff, only submission status is visible. After kickoff, predictions are revealed.</p>
             <div style={{ display: 'grid', gap: 14 }}>
               {matches.map((match) => (
                 <div key={match.id} style={{ background: 'rgba(255,255,255,.06)', borderRadius: 18, padding: 14 }}>
@@ -921,7 +921,7 @@ async function deleteMatch(match: Match) {
 </div>
             <div style={cardStyle}>
               <h2>Admin: Bulk import</h2>
-              <p style={{ color: '#cbd5e1' }}>Format ανά γραμμή: match_no,match_day,group,home,away,kickoff_at</p>
+              <p style={{ color: '#cbd5e1' }}>Format per line: match_no,match_day,group,home,away,kickoff_at</p>
               <textarea style={{ ...inputStyle, minHeight: 150 }} value={bulkText} onChange={(e) => setBulkText(e.target.value)} placeholder={'1,Πέμπτη 11 Ιουνίου,A,MEX,RSA,2026-06-11T19:00:00Z'} />
               <button style={{ ...buttonStyle, marginTop: 10 }} onClick={bulkImport}>Import</button>
             </div>
