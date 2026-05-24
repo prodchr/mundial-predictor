@@ -69,48 +69,48 @@ function formatCyprusTime(value: string) {
 }
 function country(code: string) {
   const map: Record<string, { name: string; flag: string }> = {
-    MEX: { name: 'Mexico', flag: '🇲🇽' },
-    RSA: { name: 'South Africa', flag: '🇿🇦' },
-    KOR: { name: 'South Korea', flag: '🇰🇷' },
-    CZE: { name: 'Czechia', flag: '🇨🇿' },
+  MEX: { name: 'Mexico', flag: '🇲🇽' },
+  RSA: { name: 'South Africa', flag: '🇿🇦' },
+  KOR: { name: 'South Korea', flag: '🇰🇷' },
+  CZE: { name: 'Czechia', flag: '🇨🇿' },
 
-    CAN: { name: 'Canada', flag: '🇨🇦' },
-    BIH: { name: 'Bosnia & Herzegovina', flag: '🇧🇦' },
-    QAT: { name: 'Qatar', flag: '🇶🇦' },
-    SUI: { name: 'Switzerland', flag: '🇨🇭' },
+  CAN: { name: 'Canada', flag: '🇨🇦' },
+  BIH: { name: 'Bosnia & Herzegovina', flag: '🇧🇦' },
+  QAT: { name: 'Qatar', flag: '🇶🇦' },
+  SUI: { name: 'Switzerland', flag: '🇨🇭' },
 
-    BRA: { name: 'Brazil', flag: '🇧🇷' },
-    MAR: { name: 'Morocco', flag: '🇲🇦' },
-    HAI: { name: 'Haiti', flag: '🇭🇹' },
-    SCO: { name: 'Scotland', flag: '🏴' },
+  BRA: { name: 'Brazil', flag: '🇧🇷' },
+  MAR: { name: 'Morocco', flag: '🇲🇦' },
+  HAI: { name: 'Haiti', flag: '🇭🇹' },
+  SCO: { name: 'Scotland', flag: '🏴' },
 
-    USA: { name: 'United States', flag: '🇺🇸' },
-    PAR: { name: 'Paraguay', flag: '🇵🇾' },
-    AUS: { name: 'Australia', flag: '🇦🇺' },
-    TUR: { name: 'Türkiye', flag: '🇹🇷' },
+  USA: { name: 'United States', flag: '🇺🇸' },
+  PAR: { name: 'Paraguay', flag: '🇵🇾' },
+  AUS: { name: 'Australia', flag: '🇦🇺' },
+  TUR: { name: 'Türkiye', flag: '🇹🇷' },
 
-    GER: { name: 'Germany', flag: '🇩🇪' },
-    CUW: { name: 'Curaçao', flag: '🇨🇼' },
-    CIV: { name: 'Ivory Coast', flag: '🇨🇮' },
-    ECU: { name: 'Ecuador', flag: '🇪🇨' },
+  GER: { name: 'Germany', flag: '🇩🇪' },
+  CUW: { name: 'Curaçao', flag: '🇨🇼' },
+  CIV: { name: 'Ivory Coast', flag: '🇨🇮' },
+  ECU: { name: 'Ecuador', flag: '🇪🇨' },
 
-    NED: { name: 'Netherlands', flag: '🇳🇱' },
-    JPN: { name: 'Japan', flag: '🇯🇵' },
-    SWE: { name: 'Sweden', flag: '🇸🇪' },
-    TUN: { name: 'Tunisia', flag: '🇹🇳' },
+  NED: { name: 'Netherlands', flag: '🇳🇱' },
+  JPN: { name: 'Japan', flag: '🇯🇵' },
+  SWE: { name: 'Sweden', flag: '🇸🇪' },
+  TUN: { name: 'Tunisia', flag: '🇹🇳' },
 
-    BEL: { name: 'Belgium', flag: '🇧🇪' },
-    EGY: { name: 'Egypt', flag: '🇪🇬' },
-    IRN: { name: 'Iran', flag: '🇮🇷' },
-    NZL: { name: 'New Zealand', flag: '🇳🇿' },
+  BEL: { name: 'Belgium', flag: '🇧🇪' },
+  EGY: { name: 'Egypt', flag: '🇪🇬' },
+  IRN: { name: 'Iran', flag: '🇮🇷' },
+  NZL: { name: 'New Zealand', flag: '🇳🇿' },
 
-    ESP: { name: 'Spain', flag: '🇪🇸' },
-    CPV: { name: 'Cape Verde', flag: '🇨🇻' },
-    KSA: { name: 'Saudi Arabia', flag: '🇸🇦' },
-    URU: { name: 'Uruguay', flag: '🇺🇾' },
+  ESP: { name: 'Spain', flag: '🇪🇸' },
+  CPV: { name: 'Cape Verde', flag: '🇨🇻' },
+  KSA: { name: 'Saudi Arabia', flag: '🇸🇦' },
+  URU: { name: 'Uruguay', flag: '🇺🇾' },
 
-    TBD: { name: 'TBD', flag: '❓' },
-  };
+  TBD: { name: 'TBD', flag: '❓' },
+}
 
   return map[code] || { name: code, flag: '🏳️' };
 }
