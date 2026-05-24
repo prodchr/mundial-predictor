@@ -572,7 +572,6 @@ async function deleteMatch(match: Match) {
   }, [profiles, matches, predictions]);
 
   const groups = useMemo(() => groupStandings(matches), [matches]);
-const groups = useMemo(() => groupStandings(matches), [matches]);
 
 const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   if (!user || !profile) {
