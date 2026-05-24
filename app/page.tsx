@@ -716,7 +716,7 @@ async function deleteMatch(match: Match) {
                       <td style={tdStyle}>{match.match_no}</td>
                       <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
                       <td style={tdStyle}>{match.group_name || '-'}</td>
-                      <td style={{ ...tdStyle, fontWeight: 900 }}>{country(match.home_team).flag} {country(match.home_team).name} vs {country(match.away_team).flag} {country(match.away_team).name}</td>
+                      <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                       <td style={tdStyle}>{match.home_score === null ? '-' : match.home_score} - {match.away_score === null ? '-' : match.away_score}</td>
                       <td style={tdStyle}>{isLocked(match) ? '🔒 Locked' : '🟢 Open'}</td>
                     </tr>
@@ -740,7 +740,7 @@ async function deleteMatch(match: Match) {
                       <tr key={match.id}>
                         <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
                         <td style={tdStyle}>{match.group_name}</td>
-                        <td style={{ ...tdStyle, fontWeight: 900 }}>{country(match.home_team).flag} {country(match.home_team).name} vs {country(match.away_team).flag} {country(match.away_team).name}</td>
+                        <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                         <td style={tdStyle}>
                           <input disabled={locked} style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }} value={prediction?.pred_home ?? ''} onChange={(e) => savePrediction(match, 'pred_home', e.target.value)} />
                           <span style={{ margin: '0 8px' }}>-</span>
@@ -764,7 +764,7 @@ async function deleteMatch(match: Match) {
             <div style={{ display: 'grid', gap: 14 }}>
               {matches.map((match) => (
                 <div key={match.id} style={{ background: 'rgba(255,255,255,.06)', borderRadius: 18, padding: 14 }}>
-                  <h3>{formatCyprusTime(match.kickoff_at)} CY · {country(match.home_team).flag} {country(match.home_team).name} vs {country(match.away_team).flag} {country(match.away_team).name}</h3>
+                  <h3>{formatCyprusTime(match.kickoff_at)} CY · <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></h3>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 8 }}>
                     {profiles.filter((player) => player.role !== 'admin').map((player) => {
                       const prediction = predictionFor(player.id, match.id);
@@ -851,7 +851,7 @@ async function deleteMatch(match: Match) {
           }}
         >
           <div style={{ fontWeight: 800 }}>
-            #{match.match_no} — {country(match.home_team).flag} {country(match.home_team).name} vs {country(match.away_team).flag} {country(match.away_team).name}
+            #{match.match_no} — <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
@@ -982,7 +982,7 @@ async function deleteMatch(match: Match) {
                       <tr key={match.id}>
                         <td style={tdStyle}>{match.match_no}</td>
                         <td style={tdStyle}>{match.match_day}</td>
-                        <td style={{ ...tdStyle, fontWeight: 900 }}>{country(match.home_team).flag} {country(match.home_team).name} vs {country(match.away_team).flag} {country(match.away_team).name}</td>
+                        <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                         <td style={tdStyle}>
                           <input style={adminScoreInputStyle} value={match.home_score ?? ''} onChange={(e) => saveScore(match, 'home_score', e.target.value)} />
                           <span style={{ margin: '0 8px' }}>-</span>
