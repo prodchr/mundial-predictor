@@ -675,7 +675,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     );
   }
 
-  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups'];
+  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Instructions'];
   if (profile.role === 'admin') tabs.push('Admin')
 
   return (
@@ -856,6 +856,54 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
           </section>
         )}
 
+        {tab === 'Instructions' && (
+  <section style={{ display: 'grid', gap: 20 }}>
+    <div style={cardStyle}>
+      <h2>Instructions 🇬🇧</h2>
+
+      <ol style={{ lineHeight: 1.8 }}>
+        <li>Go to <b>Predictions</b> and submit your score predictions before kickoff.</li>
+        <li>You can edit or delete your prediction until the match starts.</li>
+        <li>Once kickoff begins, predictions are locked automatically.</li>
+        <li>Before kickoff, other players only see <b>Submitted</b>.</li>
+        <li>After kickoff, all predictions become visible to everyone.</li>
+        <li>
+          Scoring system:
+          <ul>
+            <li>Exact score = <b>3 points</b></li>
+            <li>Correct winner / draw = <b>1 point</b></li>
+            <li>Wrong prediction = <b>0 points</b></li>
+          </ul>
+        </li>
+        <li>Leaderboard updates automatically after results are entered.</li>
+        <li>All match times are shown in <b>your local timezone</b>.</li>
+      </ol>
+    </div>
+
+    <div style={cardStyle}>
+      <h2>Οδηγίες 🇬🇷</h2>
+
+      <ol style={{ lineHeight: 1.8 }}>
+        <li>Πήγαινε στο <b>Predictions</b> και βάλε τις προβλέψεις σου πριν την έναρξη του αγώνα.</li>
+        <li>Μπορείς να αλλάξεις ή να διαγράψεις πρόβλεψη μέχρι να ξεκινήσει ο αγώνας.</li>
+        <li>Με την έναρξη του αγώνα οι προβλέψεις κλειδώνουν αυτόματα.</li>
+        <li>Πριν την έναρξη οι άλλοι βλέπουν μόνο <b>Submitted</b>.</li>
+        <li>Μετά την έναρξη όλες οι προβλέψεις γίνονται ορατές.</li>
+        <li>
+          Σύστημα βαθμών:
+          <ul>
+            <li>Ακριβές σκορ = <b>3 βαθμοί</b></li>
+            <li>Σωστό αποτέλεσμα (νίκη / ισοπαλία) = <b>1 βαθμός</b></li>
+            <li>Λάθος πρόβλεψη = <b>0 βαθμοί</b></li>
+          </ul>
+        </li>
+        <li>Το leaderboard ενημερώνεται αυτόματα μόλις μπουν τα αποτελέσματα.</li>
+        <li>Όλες οι ώρες εμφανίζονται στη <b>δική σου τοπική ώρα</b>.</li>
+      </ol>
+    </div>
+  </section>
+)}
+        
         {tab === 'Admin' && profile.role === 'admin' && (
           <section style={{ display: 'grid', gap: 14 }}>
             <div style={cardStyle}>
