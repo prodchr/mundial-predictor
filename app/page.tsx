@@ -55,8 +55,31 @@ function isLocked(match: Match) {
 
   return cyNow >= kickoff;
 }
+
+function formatCyprusTime(value: string) {
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Nicosia',
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(new Date(value));
+}
 function isPredictionComplete(prediction?: Prediction) {
   return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
+}
+function formatCyprusTime(value: string) {
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Nicosia',
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(new Date(value));
 }
 function predictionPoints(match: Match, prediction?: Prediction) {
   if (!prediction) return 0;
@@ -656,7 +679,7 @@ async function deleteMatch(match: Match) {
                   {matches.map((match) => (
                     <tr key={match.id}>
                       <td style={tdStyle}>{match.match_no}</td>
-                      <td style={tdStyle}>{match.match_day}</td>
+                      <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
                       <td style={tdStyle}>{match.group_name || '-'}</td>
                       <td style={{ ...tdStyle, fontWeight: 900 }}>{match.home_team} vs {match.away_team}</td>
                       <td style={tdStyle}>{match.home_score === null ? '-' : match.home_score} - {match.away_score === null ? '-' : match.away_score}</td>
@@ -680,7 +703,7 @@ async function deleteMatch(match: Match) {
                     const locked = isLocked(match);
                     return (
                       <tr key={match.id}>
-                        <td style={tdStyle}>{match.match_day}</td>
+                        <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
                         <td style={tdStyle}>{match.group_name}</td>
                         <td style={{ ...tdStyle, fontWeight: 900 }}>{match.home_team} vs {match.away_team}</td>
                         <td style={tdStyle}>
@@ -706,7 +729,7 @@ async function deleteMatch(match: Match) {
             <div style={{ display: 'grid', gap: 14 }}>
               {matches.map((match) => (
                 <div key={match.id} style={{ background: 'rgba(255,255,255,.06)', borderRadius: 18, padding: 14 }}>
-                  <h3>{match.match_day} · {match.home_team} vs {match.away_team}</h3>
+                  <h3>{formatCyprusTime(match.kickoff_at)} CY · {match.home_team} vs {match.away_team}</h3>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 8 }}>
                     {profiles.filter((player) => player.role !== 'admin').map((player) => {
                       const prediction = predictionFor(player.id, match.id);
