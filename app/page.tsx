@@ -803,9 +803,14 @@ async function deleteMatch(match: Match) {
             {Object.entries(groups).map(([group, rows]: any) => (
               <div key={group} style={cardStyle}>
                 <h2 style={{ color: '#fbbf24' }}>Group {group}</h2>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
                   <thead>
-                    <tr><th style={thStyle}>Team</th><th style={thStyle}>P</th><th style={thStyle}>GD</th><th style={thStyle}>Pts</th></tr>
+                    <tr>
+  <th style={{ ...thStyle, width: '60%' }}>Team</th>
+  <th style={{ ...thStyle, width: '13%' }}>P</th>
+  <th style={{ ...thStyle, width: '13%' }}>GD</th>
+  <th style={{ ...thStyle, width: '14%' }}>Pts</th>
+</tr>
                   </thead>
                   <tbody>
                     {rows.map((row: any) => (
