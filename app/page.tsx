@@ -735,34 +735,78 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
         )}
 
         {tab === 'Predictions' && (
-          <section style={cardStyle}>
-            <h2>My Predictions</h2>
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <tbody>
-                  {matches.map((match) => {
-                    const prediction = predictionFor(user.id, match.id);
-                    const locked = isLocked(match);
-                    return (
-                      <tr key={match.id}>
-                        <td style={tdStyle}>{formatLocalTime(match.kickoff_at)} Local</td>
-                        <td style={tdStyle}>{match.group_name}</td>
-                        <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>  {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
-                        <td style={tdStyle}>
-                          <input disabled={locked} style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }} value={prediction?.pred_home ?? ''} onChange={(e) => savePrediction(match, 'pred_home', e.target.value)} />
-                          <span style={{ margin: '0 8px' }}>-</span>
-                          <input disabled={locked} style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }} value={prediction?.pred_away ?? ''} onChange={(e) => savePrediction(match, 'pred_away', e.target.value)} />
-                        </td>
-                        <td style={tdStyle}>{locked ? '🔒 Locked' : '🟢 Open'}</td>
-                        <td style={{ ...tdStyle, color: '#fbbf24', fontWeight: 900 }}>{predictionPoints(match, prediction)} pts</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+  <section style={cardStyle}>
+    <h2>My Predictions</h2>
+
+    <div style={{ display: 'grid', gap: 14 }}>
+      {matches.map((match) => {
+        const prediction = predictionFor(user.id, match.id);
+        const locked = isLocked(match);
+
+        return (
+          <div
+            key={match.id}
+            style={{
+              borderTop: '1px solid rgba(255,255,255,.12)',
+              padding: '16px 0',
+              display: 'grid',
+              gridTemplateColumns: 'minmax(160px, 1.2fr) minmax(220px, 1.4fr) minmax(220px, 1fr) minmax(120px, .7fr)',
+              gap: 14,
+              alignItems: 'center',
+            }}
+          >
+            <div>{formatLocalTime(match.kickoff_at)} Local</div>
+
+            <div>
+              <div style={{ color: '#cbd5e1', marginBottom: 6 }}>Group {match.group_name}</div>
+
+              <div style={{ display: 'grid', gap: 6, fontWeight: 900 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  {country(match.home_team).flag && (
+                    <img src={country(match.home_team).flag} width={22} height={15} alt="" />
+                  )}
+                  <span>{country(match.home_team).name}</span>
+                </div>
+
+                <div style={{ color: '#cbd5e1', fontSize: 14 }}>vs</div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  {country(match.away_team).flag && (
+                    <img src={country(match.away_team).flag} width={22} height={15} alt="" />
+                  )}
+                  <span>{country(match.away_team).name}</span>
+                </div>
+              </div>
             </div>
-          </section>
-        )}
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <input
+                disabled={locked}
+                style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }}
+                value={prediction?.pred_home ?? ''}
+                onChange={(e) => savePrediction(match, 'pred_home', e.target.value)}
+              />
+              <span>-</span>
+              <input
+                disabled={locked}
+                style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }}
+                value={prediction?.pred_away ?? ''}
+                onChange={(e) => savePrediction(match, 'pred_away', e.target.value)}
+              />
+            </div>
+
+            <div style={{ display: 'grid', gap: 6 }}>
+              <div>{locked ? '🔒 Locked' : '🟢 Open'}</div>
+              <div style={{ color: '#fbbf24', fontWeight: 900 }}>
+                {predictionPoints(match, prediction)} pts
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}
 
         {tab === 'Players' && (
           <section style={cardStyle}>
