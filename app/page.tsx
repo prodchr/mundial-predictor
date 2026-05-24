@@ -529,7 +529,6 @@ async function deleteMatch(match: Match) {
     return (
       <main style={pageStyle}>
         <div style={{ maxWidth: 460, margin: '40px auto', ...cardStyle }}>
-          <h1>Score Predictor</h1>
           <h1 style={{ fontSize: 38, margin: '8px 0 4px' }}>Score Predictor</h1>
           <p style={{ color: '#cbd5e1' }}>Login ή δημιούργησε account.</p>
 
