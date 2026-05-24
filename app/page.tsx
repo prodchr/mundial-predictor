@@ -750,9 +750,9 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
               borderTop: '1px solid rgba(255,255,255,.12)',
               padding: '16px 0',
               display: 'grid',
-              gridTemplateColumns: 'minmax(160px, 1.2fr) minmax(220px, 1.4fr) minmax(220px, 1fr) minmax(120px, .7fr)',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
               gap: 14,
-              alignItems: 'center',
+              alignItems: 'start',
             }}
           >
             <div>{formatLocalTime(match.kickoff_at)} Local</div>
