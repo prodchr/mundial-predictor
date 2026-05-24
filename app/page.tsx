@@ -717,13 +717,7 @@ async function deleteMatch(match: Match) {
                       <td style={tdStyle}>{match.match_no}</td>
                       <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
                       <td style={tdStyle}>{match.group_name || '-'}</td>
-                      <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: 6,
-  minWidth: 180
-}}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <div style={{ fontSize: 14, opacity: 0.7 }}>vs</div>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
+                      <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                       <td style={tdStyle}>{match.home_score === null ? '-' : match.home_score} - {match.away_score === null ? '-' : match.away_score}</td>
                       <td style={tdStyle}>{isLocked(match) ? '🔒 Locked' : '🟢 Open'}</td>
                     </tr>
@@ -747,13 +741,7 @@ async function deleteMatch(match: Match) {
                       <tr key={match.id}>
                         <td style={tdStyle}>{formatCyprusTime(match.kickoff_at)} CY</td>
                         <td style={tdStyle}>{match.group_name}</td>
-                        <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: 6,
-  minWidth: 180
-}}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <div style={{ fontSize: 14, opacity: 0.7 }}>vs</div>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
+                        <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>  {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                         <td style={tdStyle}>
                           <input disabled={locked} style={{ ...scoreInputStyle, opacity: locked ? 0.6 : 1 }} value={prediction?.pred_home ?? ''} onChange={(e) => savePrediction(match, 'pred_home', e.target.value)} />
                           <span style={{ margin: '0 8px' }}>-</span>
