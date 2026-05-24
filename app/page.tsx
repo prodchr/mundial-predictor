@@ -216,7 +216,7 @@ export default function MundialPredictor() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
-  const [tab, setTab] = useState('dashboard');
+  const [tab, setTab] = useState('Dashboard');
   const [message, setMessage] = useState('');
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
@@ -622,8 +622,8 @@ async function deleteMatch(match: Match) {
     );
   }
 
-  const tabs = ['dashboard', 'fixtures', 'predictions', 'players', 'leaderboard', 'groups'];
-  if (profile.role === 'admin') tabs.push('admin');
+  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups'];
+  if (profile.role === 'admin') tabs.push('Admin')
 
   return (
     <main style={pageStyle}>
@@ -647,7 +647,7 @@ async function deleteMatch(match: Match) {
 
         {message && <div style={{ ...cardStyle, borderColor: '#fbbf24', marginBottom: 16, color: '#fde68a' }}>{message}</div>}
 
-        {tab === 'dashboard' && (
+        {tab === 'Dashboard' && (
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
             {leaderboard.slice(0, 3).map((player, index) => (
               <div key={player.id} style={{ ...cardStyle, textAlign: 'center' }}>
@@ -660,7 +660,7 @@ async function deleteMatch(match: Match) {
           </section>
         )}
 
-        {tab === 'fixtures' && (
+        {tab === 'Fixtures' && (
           <section style={cardStyle}>
             <h2>Fixtures</h2>
             <div style={{ overflowX: 'auto' }}>
@@ -682,7 +682,7 @@ async function deleteMatch(match: Match) {
           </section>
         )}
 
-        {tab === 'predictions' && (
+        {tab === 'Predictions' && (
           <section style={cardStyle}>
             <h2>Οι προβλέψεις μου</h2>
             <div style={{ overflowX: 'auto' }}>
@@ -712,7 +712,7 @@ async function deleteMatch(match: Match) {
           </section>
         )}
 
-        {tab === 'players' && (
+        {tab === 'Players' && (
           <section style={cardStyle}>
             <h2>Players submission status</h2>
             <p style={{ color: '#cbd5e1' }}>Πριν το kickoff φαίνεται μόνο αν συμπληρώθηκε. Μετά το kickoff φαίνεται και το σκορ.</p>
@@ -740,7 +740,7 @@ async function deleteMatch(match: Match) {
           </section>
         )}
 
-        {tab === 'leaderboard' && (
+        {tab === 'Leaderboard' && (
           <section style={cardStyle}>
             <h2>Leaderboard</h2>
             {leaderboard.map((player, index) => (
@@ -752,7 +752,7 @@ async function deleteMatch(match: Match) {
           </section>
         )}
 
-        {tab === 'groups' && (
+        {tab === 'Groups' && (
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
             {Object.entries(groups).map(([group, rows]: any) => (
               <div key={group} style={cardStyle}>
@@ -777,7 +777,7 @@ async function deleteMatch(match: Match) {
           </section>
         )}
 
-        {tab === 'admin' && profile.role === 'admin' && (
+        {tab === 'Admin' && profile.role === 'admin' && (
           <section style={{ display: 'grid', gap: 14 }}>
             <div style={cardStyle}>
               <h2>Admin: Add match</h2>
