@@ -67,6 +67,53 @@ function formatCyprusTime(value: string) {
     hour12: false,
   }).format(new Date(value));
 }
+function country(code: string) {
+  const map: Record<string, { name: string; flag: string }> = {
+    MEX: { name: 'Mexico', flag: '🇲🇽' },
+    RSA: { name: 'South Africa', flag: '🇿🇦' },
+    KOR: { name: 'South Korea', flag: '🇰🇷' },
+    CZE: { name: 'Czechia', flag: '🇨🇿' },
+
+    CAN: { name: 'Canada', flag: '🇨🇦' },
+    BIH: { name: 'Bosnia & Herzegovina', flag: '🇧🇦' },
+    QAT: { name: 'Qatar', flag: '🇶🇦' },
+    SUI: { name: 'Switzerland', flag: '🇨🇭' },
+
+    BRA: { name: 'Brazil', flag: '🇧🇷' },
+    MAR: { name: 'Morocco', flag: '🇲🇦' },
+    HAI: { name: 'Haiti', flag: '🇭🇹' },
+    SCO: { name: 'Scotland', flag: '🏴' },
+
+    USA: { name: 'United States', flag: '🇺🇸' },
+    PAR: { name: 'Paraguay', flag: '🇵🇾' },
+    AUS: { name: 'Australia', flag: '🇦🇺' },
+    TUR: { name: 'Türkiye', flag: '🇹🇷' },
+
+    GER: { name: 'Germany', flag: '🇩🇪' },
+    CUW: { name: 'Curaçao', flag: '🇨🇼' },
+    CIV: { name: 'Ivory Coast', flag: '🇨🇮' },
+    ECU: { name: 'Ecuador', flag: '🇪🇨' },
+
+    NED: { name: 'Netherlands', flag: '🇳🇱' },
+    JPN: { name: 'Japan', flag: '🇯🇵' },
+    SWE: { name: 'Sweden', flag: '🇸🇪' },
+    TUN: { name: 'Tunisia', flag: '🇹🇳' },
+
+    BEL: { name: 'Belgium', flag: '🇧🇪' },
+    EGY: { name: 'Egypt', flag: '🇪🇬' },
+    IRN: { name: 'Iran', flag: '🇮🇷' },
+    NZL: { name: 'New Zealand', flag: '🇳🇿' },
+
+    ESP: { name: 'Spain', flag: '🇪🇸' },
+    CPV: { name: 'Cape Verde', flag: '🇨🇻' },
+    KSA: { name: 'Saudi Arabia', flag: '🇸🇦' },
+    URU: { name: 'Uruguay', flag: '🇺🇾' },
+
+    TBD: { name: 'TBD', flag: '❓' },
+  };
+
+  return map[code] || { name: code, flag: '🏳️' };
+}
 function isPredictionComplete(prediction?: Prediction) {
   return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
 }
