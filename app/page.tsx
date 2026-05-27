@@ -865,34 +865,101 @@ onChange={(e) =>
   </section>
 )}
 
-        {tab === 'Players' && (
-          <section style={cardStyle}>
-            <h2>Players submission status</h2>
-            <p style={{ color: '#cbd5e1' }}>Before kickoff, only submission status is visible. After kickoff, predictions are revealed.</p>
-            <div style={{ display: 'grid', gap: 14 }}>
-              {matches.map((match) => (
-                <div key={match.id} style={{ background: 'rgba(255,255,255,.06)', borderRadius: 18, padding: 14 }}>
-                  <h3>{formatLocalTime(match.kickoff_at)} Local · <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 8 }}>
-                    {profiles.filter((player) => player.role !== 'admin').map((player) => {
-                      const prediction = predictionFor(player.id, match.id);
-                      const visible = isLocked(match);
-                      return (
-                        <div key={player.id} style={{ padding: 10, borderRadius: 14, background: 'rgba(255,255,255,.08)' }}>
-                          <b>@{player.username}</b><br />
-                          {isPredictionComplete(prediction)
-  ? (visible ? `${prediction!.pred_home} - ${prediction!.pred_away}` : 'Submitted ✅')
-  : 'Not submitted ⏳'}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+       {tab === 'Players' && (
+  <section style={cardStyle}>
+    <h2>Players submission status</h2>
+    <p style={{ color: '#cbd5e1' }}>
+      Before kickoff, only submission status is visible. After kickoff, predictions are revealed.
+    </p>
 
+    <div style={{ display: 'grid', gap: 14 }}>
+      {matches.map((match) => {
+        const visible = isLocked(match);
+        const playerList = profiles.filter((player) => player.role !== 'admin');
+        const submittedCount = playerList.filter((player) =>
+          isPredictionComplete(predictionFor(player.id, match.id))
+        ).length;
+
+        return (
+          <div
+            key={match.id}
+            style={{
+              background: 'rgba(255,255,255,.06)',
+              borderRadius: 18,
+              padding: 14,
+            }}
+          >
+            <button
+              style={{
+                width: '100%',
+                border: 0,
+                background: 'transparent',
+                color: '#fff',
+                cursor: 'pointer',
+                textAlign: 'left',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 12,
+                fontWeight: 900,
+                fontSize: 18,
+              }}
+              onClick={() =>
+                setOpenPlayerMatches((prev) => ({
+                  ...prev,
+                  [match.id]: !prev[match.id],
+                }))
+              }
+            >
+              <span>
+                {formatLocalTime(match.kickoff_at)} Local · {country(match.home_team).name} vs {country(match.away_team).name}
+              </span>
+
+              <span style={{ color: '#fbbf24', whiteSpace: 'nowrap' }}>
+                {submittedCount}/{playerList.length} submitted {openPlayerMatches[match.id] ? '▲' : '▼'}
+              </span>
+            </button>
+
+            {openPlayerMatches[match.id] && (
+              <div
+                style={{
+                  marginTop: 12,
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))',
+                  gap: 10,
+                }}
+              >
+                {playerList.map((player) => {
+                  const prediction = predictionFor(player.id, match.id);
+
+                  return (
+                    <div
+                      key={player.id}
+                      style={{
+                        padding: 10,
+                        borderRadius: 14,
+                        background: 'rgba(255,255,255,.08)',
+                      }}
+                    >
+                      <b>@{player.username}</b>
+                      <br />
+
+                      {isPredictionComplete(prediction)
+                        ? visible
+                          ? `${prediction!.pred_home} - ${prediction!.pred_away}`
+                          : 'Submitted ✅'
+                        : 'Not submitted ⏳'}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}
         {tab === 'Leaderboard' && (
           <section style={cardStyle}>
             <h2>Leaderboard</h2>
