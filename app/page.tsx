@@ -507,6 +507,14 @@ if (currentUser) {
 
   return () => clearInterval(timer);
 }, []);
+
+  useEffect(() => {
+  const timer = setInterval(() => {
+    setNow(new Date());
+  }, 60000);
+
+  return () => clearInterval(timer);
+}, []);
   
   useEffect(() => {
   if (!profile?.league_id) return;
