@@ -912,7 +912,16 @@ onChange={(e) =>
               }
             >
               <span>
-                {formatLocalTime(match.kickoff_at)} Local · {country(match.home_team).name} vs {country(match.away_team).name}
+                {formatLocalTime(match.kickoff_at)} Local · {' '}
+{country(match.home_team).flag && (
+  <img src={country(match.home_team).flag} width={20} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: 6 }} />
+)}
+{country(match.home_team).name}
+{' vs '}
+{country(match.away_team).flag && (
+  <img src={country(match.away_team).flag} width={20} height={14} alt="" style={{ verticalAlign: 'middle', margin: '0 6px' }} />
+)}
+{country(match.away_team).name}
               </span>
 
               <span style={{ color: '#fbbf24', whiteSpace: 'nowrap' }}>
