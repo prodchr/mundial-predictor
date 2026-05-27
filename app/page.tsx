@@ -1589,7 +1589,6 @@ onChange={(e) =>
       m.id === match.id ? { ...m, away_score: e.target.value } : m
     ))}
   />
-                        </td>
                       </tr>
                     ))}
                   </tbody>
