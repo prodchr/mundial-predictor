@@ -509,12 +509,17 @@ if (currentUser) {
 }, []);
 
   useEffect(() => {
-  const timer = setInterval(() => {
-    setNow(new Date());
-  }, 60000);
+  if (tab !== 'Chat') return;
+  if (!profile?.league_id) return;
 
-  return () => clearInterval(timer);
-}, []);
+  loadLeagueMessages(profile.league_id);
+
+  const chatTimer = setInterval(() => {
+    loadLeagueMessages(profile.league_id!);
+  }, 3000);
+
+  return () => clearInterval(chatTimer);
+}, [tab, profile?.league_id]);
   
   useEffect(() => {
   if (!profile?.league_id) return;
