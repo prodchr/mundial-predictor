@@ -120,6 +120,20 @@ function country(code: string) {
 
   return map[code] || { name: code, flag: '' }
 }
+function countdownText(kickoffAt: string, now: Date) {
+  const diff = new Date(kickoffAt).getTime() - now.getTime();
+
+  if (diff <= 0) return 'Locked';
+
+  const totalMinutes = Math.floor(diff / 60000);
+  const days = Math.floor(totalMinutes / 1440);
+  const hours = Math.floor((totalMinutes % 1440) / 60);
+  const minutes = totalMinutes % 60;
+
+  if (days > 0) return `Locks in ${days}d ${hours}h`;
+  if (hours > 0) return `Locks in ${hours}h ${minutes}m`;
+  return `Locks in ${minutes}m`;
+}
 function isPredictionComplete(prediction?: Prediction) {
   return !!prediction && prediction.pred_home !== null && prediction.pred_away !== null;
 }
@@ -266,9 +280,10 @@ const thStyle: React.CSSProperties = {
 
 export default function MundialPredictor() {
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+ const [profile, setProfile] = useState<Profile | null>(null);
   const [leagueName, setLeagueName] = useState('');
   const [openPlayerMatches, setOpenPlayerMatches] = useState<Record<number, boolean>>({});
+  const [now, setNow] = useState(new Date());
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
@@ -356,6 +371,14 @@ if (currentUser) {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+  
+  useEffect(() => {
+  const timer = setInterval(() => {
+    setNow(new Date());
+  }, 60000);
+
+  return () => clearInterval(timer);
+}, []);
 
 async function login() {
   setMessage('Logging in...');
