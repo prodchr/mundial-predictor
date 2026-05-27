@@ -188,46 +188,46 @@ function predictionPoints(match: Match, prediction?: Prediction) {
   188  return actual === guessed ? 1 : 0;
 189 }
 
-190 function playerBadges(playerId: string, matches: Match[], predictions: Prediction[]) {
-191   const playerPredictions = predictions.filter((p) => p.user_id === playerId);
+function playerBadges(playerId: string, matches: Match[], predictions: Prediction[]) {
+  const playerPredictions = predictions.filter((p) => p.user_id === playerId);
 
-192   let exactScores = 0;
-193   let correctOutcomes = 0;
-194   let exactStreak = 0;
-195   let bestExactStreak = 0;
+  let exactScores = 0;
+  let correctOutcomes = 0;
+  let exactStreak = 0;
+  let bestExactStreak = 0;
 
-196   matches.forEach((match) => {
-197     if (
-198       match.home_score === null ||
-199       match.away_score === null
-200     ) return;
+  matches.forEach((match) => {
+    if (
+      match.home_score === null ||
+      match.away_score === null
+    ) return;
 
-201     const prediction = playerPredictions.find((p) => p.match_id === match.id);
-202     if (!prediction) return;
+    const prediction = playerPredictions.find((p) => p.match_id === match.id);
+    if (!prediction) return;
 
-203     const points = predictionPoints(match, prediction);
+    const points = predictionPoints(match, prediction);
 
-204     if (points === 3) {
-205       exactScores++;
-206       exactStreak++;
-207       if (exactStreak > bestExactStreak) bestExactStreak = exactStreak;
-208     } else {
-209       exactStreak = 0;
-210     }
+    if (points === 3) {
+      exactScores++;
+      exactStreak++;
+      if (exactStreak > bestExactStreak) bestExactStreak = exactStreak;
+    } else {
+      exactStreak = 0;
+    }
 
-211     if (points > 0) {
-212       correctOutcomes++;
-213     }
-214   });
+    if (points > 0) {
+      correctOutcomes++;
+    }
+  });
 
-215   const badges = [];
+  const badges = [];
 
-216   if (exactScores >= 3) badges.push('🎯 Sniper');
-217   if (bestExactStreak >= 2) badges.push('🔥 Hot Hand');
-218   if (correctOutcomes >= 10) badges.push('🧠 Oracle');
+  if (exactScores >= 3) badges.push('🎯 Sniper');
+  if (bestExactStreak >= 2) badges.push('🔥 Hot Hand');
+  if (correctOutcomes >= 10) badges.push('🧠 Oracle');
 
-219   return badges;
-220 }
+  return badges;
+}
 
 function groupStandings(matches: Match[]) {
   const tables: Record<string, any[]> = {};
