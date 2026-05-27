@@ -1396,7 +1396,6 @@ const names = reactions
     return (
       <button
         key={emoji}
-        title={names.map((name) => `@${name}`).join(', ')}
         style={{
           border: 0,
           borderRadius: 999,
