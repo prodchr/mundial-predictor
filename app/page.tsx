@@ -839,22 +839,24 @@ onChange={(e) =>
             <button
   disabled={locked}
   style={{
-    ...buttonStyle,
-    padding: '10px 14px',
-    opacity: locked ? 0.6 : 1,
-  }}
+  ...buttonStyle,
+  padding: '10px 14px',
+  opacity: locked ? 0.6 : 1,
+  minWidth: 95,
+}}
   onClick={async () => {   const draft = draftPredictions[match.id];    await savePrediction(match, 'pred_home', draft?.pred_home ?? String(prediction?.pred_home ?? ''));   await savePrediction(match, 'pred_away', draft?.pred_away ?? String(prediction?.pred_away ?? ''));    setMessage('Prediction submitted ✅'); }}
 >
   Submit
 </button>
 </div>
 
-            <div style={{ display: 'grid', gap: 6 }}>
-              <div>{locked ? '🔒 Locked' : '🟢 Open'}</div>
-              <div style={{ color: '#fbbf24', fontWeight: 900 }}>
-                {predictionPoints(match, prediction)} pts
-              </div>
-            </div>
+            <div style={{ display: 'grid', gap: 8, minWidth: 120 }}>
+  <div>{locked ? '🔒 Locked' : '🟢 Open'}</div>
+
+  <div style={{ color: '#fbbf24', fontWeight: 900 }}>
+    {predictionPoints(match, prediction)} pts
+  </div>
+</div>
           </div>
         );
       })}
