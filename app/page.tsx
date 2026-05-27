@@ -391,11 +391,16 @@ async function login() {
   async function signUp() {
     setMessage('');
 
-    const settings = await supabase.from('app_settings').select('invite_code').eq('id', 1).single();
-    if (!settings.data || settings.data.invite_code !== inviteCode.trim()) {
-      setMessage('Invalid invite code.');
-      return;
-    }
+    const leagueResult = await supabase
+  .from('leagues')
+  .select('id, name')
+  .eq('invite_code', inviteCode.trim())
+  .single();
+
+if (leagueResult.error || !leagueResult.data) {
+  setMessage('Invalid invite code.');
+  return;
+}
 
     if (!username.trim()) {
       setMessage('Please enter a username.');
@@ -405,7 +410,12 @@ async function login() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { username: username.trim() } },
+      options: {
+  data: {
+    username: username.trim(),
+    league_id: leagueResult.data.id,
+  },
+},
     });
 
     if (error) setMessage(error.message);
