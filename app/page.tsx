@@ -510,12 +510,12 @@ if (currentUser) {
   useEffect(() => {
   if (!profile?.league_id) return;
 
-  const channel = supabase
-    useEffect(() => {
+  useEffect(() => {
   if (!profile?.league_id) return;
 
   loadLeagueMessages(profile.league_id);
-}, [profile?.league_id, tab]);
+
+  const channel = supabase
     .channel('league-chat')
     .on(
       'postgres_changes',
