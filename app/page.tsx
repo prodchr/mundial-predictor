@@ -1576,7 +1576,7 @@ onChange={(e) =>
     style={adminScoreInputStyle}
     value={match.home_score ?? ''}
     onChange={(e) => setMatches(matches.map((m) =>
-      m.id === match.id ? { ...m, home_score: e.target.value } : m
+     home_score: e.target.value === '' ? null : Number(e.target.value)
     ))}
   />
   <span style={{ margin: '0 8px' }}>-</span>
@@ -1584,7 +1584,7 @@ onChange={(e) =>
     style={adminScoreInputStyle}
     value={match.away_score ?? ''}
     onChange={(e) => setMatches(matches.map((m) =>
-      m.id === match.id ? { ...m, away_score: e.target.value } : m
+      m.id === match.id ? { ...m, away_score: e.target.value === '' ? null : Number(e.target.value) } : m
     ))}
   />
   </td>
