@@ -1256,8 +1256,59 @@ onChange={(e) =>
               background: 'rgba(255,255,255,.08)',
             }}
           >
-            <b>@{sender?.username || 'Unknown'}</b>
-            <div style={{ marginTop: 4 }}>{message.comment}</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+  <b>@{sender?.username || 'Unknown'}</b>
+
+  {(message.user_id === user?.id || profile?.role === 'admin') && (
+    <div style={{ display: 'flex', gap: 8 }}>
+      {message.user_id === user?.id && (
+        <button
+          style={{ ...buttonStyle, padding: '6px 10px' }}
+          onClick={() => {
+            setEditingMessageId(message.id);
+            setEditingText(message.comment);
+          }}
+        >
+          Edit
+        </button>
+      )}
+
+      <button
+        style={{ ...buttonStyle, padding: '6px 10px', background: '#ef4444', color: '#fff' }}
+        onClick={() => deleteLeagueMessage(message.id)}
+      >
+        Delete
+      </button>
+    </div>
+  )}
+</div>
+
+{editingMessageId === message.id ? (
+  <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+    <input
+      style={inputStyle}
+      value={editingText}
+      onChange={(e) => setEditingText(e.target.value)}
+    />
+    <button
+      style={{ ...buttonStyle, padding: '8px 12px' }}
+      onClick={() => updateLeagueMessage(message.id)}
+    >
+      Save
+    </button>
+    <button
+      style={{ ...buttonStyle, padding: '8px 12px', background: '#334155', color: '#fff' }}
+      onClick={() => {
+        setEditingMessageId(null);
+        setEditingText('');
+      }}
+    >
+      Cancel
+    </button>
+  </div>
+) : (
+  <div style={{ marginTop: 4 }}>{message.comment}</div>
+)}
           </div>
         );
       })}
