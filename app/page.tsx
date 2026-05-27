@@ -833,6 +833,20 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
               </div>
             ))}
           </section>
+      <div style={{ ...cardStyle }}>
+  <h2>My League Snapshot</h2>
+  <div style={{ display: 'grid', gap: 10, color: '#cbd5e1' }}>
+    <div>👤 Your rank: #{leaderboard.findIndex((p) => p.id === user?.id) + 1}</div>
+    <div>📝 Your submissions: {predictions.filter((p) => p.user_id === user?.id && isPredictionComplete(p)).length}</div>
+    <div>🎯 Exact scores: {leaderboard.find((p) => p.id === user?.id)?.exacts || 0}</div>
+    <div>
+      ⏭️ Next match:{' '}
+      {matches.find((m) => new Date(m.kickoff_at) > new Date())
+        ? `${country(matches.find((m) => new Date(m.kickoff_at) > new Date())!.home_team).name} vs ${country(matches.find((m) => new Date(m.kickoff_at) > new Date())!.away_team).name}`
+        : 'No upcoming matches'}
+    </div>
+  </div>
+</div>
         )}
 
         {tab === 'Fixtures' && (
