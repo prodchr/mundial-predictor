@@ -39,6 +39,14 @@ type Prediction = {
   pred_away: number | null;
 };
 
+type LeagueChatMessage = {
+  id: string;
+  league_id: string;
+  user_id: string;
+  comment: string;
+  created_at: string;
+};
+
 function isLocked(match: Match) {
   return new Date() >= new Date(match.kickoff_at);
 }
@@ -356,6 +364,8 @@ export default function MundialPredictor() {
   const [leagueName, setLeagueName] = useState('');
   const [openPlayerMatches, setOpenPlayerMatches] = useState<Record<number, boolean>>({});
   const [now, setNow] = useState(new Date());
+  const [leagueMessages, setLeagueMessages] = useState<LeagueChatMessage[]>([]);
+  const [chatText, setChatText] = useState('');
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
