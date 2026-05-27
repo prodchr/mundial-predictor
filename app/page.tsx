@@ -1083,17 +1083,34 @@ onChange={(e) =>
     </div>
   </section>
 )}
-        {tab === 'Leaderboard' && (
-          <section style={cardStyle}>
-            <h2>Leaderboard</h2>
-            {leaderboard.map((player, index) => (
-              <div key={player.id} style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,.12)', padding: '14px 0' }}>
-                <b>{index + 1}. @{player.username}</b>
-                <span style={{ color: '#fbbf24', fontWeight: 900 }}>{player.points} pts</span>
-              </div>
-            ))}
-          </section>
+        {leaderboard.map((player, index) => {
+  const badges = playerBadges(player.id, matches, predictions);
+
+  return (
+    <div
+      key={player.id}
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: 12,
+        borderTop: '1px solid rgba(255,255,255,.12)',
+        padding: 12,
+      }}
+    >
+      <div>
+        <b>{index + 1}. @{player.username}</b>
+
+        {badges.length > 0 && (
+          <div style={{ marginTop: 6, color: '#cbd5e1', fontSize: 14 }}>
+            {badges.join(' · ')}
+          </div>
         )}
+      </div>
+
+      <span style={{ color: '#fbbf24', fontWeight: 900 }}>{player.points} pts</span>
+    </div>
+  );
+})}
 
         {tab === 'Groups' && (
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
