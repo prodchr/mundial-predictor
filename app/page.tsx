@@ -808,7 +808,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     );
   }
 
-  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Instructions'];
+  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Chat', 'Instructions'];
   if (profile.role === 'admin') tabs.push('Admin')
 
   return (
@@ -1186,6 +1186,45 @@ onChange={(e) =>
             ))}
           </section>
         )}
+
+        {tab === 'Chat' && (
+  <section style={cardStyle}>
+    <h2>League Chat</h2>
+
+    <div style={{ display: 'grid', gap: 10, marginBottom: 16 }}>
+      {leagueMessages.map((message) => {
+        const sender = profiles.find((p) => p.id === message.user_id);
+
+        return (
+          <div
+            key={message.id}
+            style={{
+              padding: 12,
+              borderRadius: 14,
+              background: 'rgba(255,255,255,.08)',
+            }}
+          >
+            <b>@{sender?.username || 'Unknown'}</b>
+            <div style={{ marginTop: 4 }}>{message.comment}</div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div style={{ display: 'flex', gap: 10 }}>
+      <input
+        style={inputStyle}
+        placeholder="Write a message..."
+        value={chatText}
+        onChange={(e) => setChatText(e.target.value)}
+      />
+
+      <button style={buttonStyle}>
+        Send
+      </button>
+    </div>
+  </section>
+)}
 
         {tab === 'Instructions' && (
   <section style={{ display: 'grid', gap: 20 }}>
