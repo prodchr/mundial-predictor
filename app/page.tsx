@@ -1107,6 +1107,7 @@ onChange={(e) =>
     </div>
   </section>
 )}
+        {tab === 'Leaderboard' && (
         {leaderboard.map((player, index) => {
   const badges = playerBadges(player.id, matches, predictions);
 
@@ -1135,6 +1136,7 @@ onChange={(e) =>
     </div>
   );
 })}
+  )}
 
         {tab === 'Groups' && (
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
