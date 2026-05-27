@@ -1578,7 +1578,7 @@ onChange={(e) =>
                           <input style={adminScoreInputStyle} value={match.away_score ?? ''} onChange={(e) => saveScore(match, 'away_score', e.target.value)} />
                         </td>
                       </tr>
-                    ))}
+                    )})}
                   </tbody>
                 </table>
               </div>
