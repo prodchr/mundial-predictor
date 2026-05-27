@@ -983,8 +983,9 @@ onChange={(e) =>
               </span>
             </button>
 
-            {openPlayerMatches[match.id] && (
-            {visible && (
+          {openPlayerMatches[match.id] && (
+  <>
+    {visible && (
   <div
     style={{
       marginTop: 12,
@@ -1032,6 +1033,7 @@ onChange={(e) =>
                   );
                 })}
               </div>
+              </>
             )}
           </div>
         );
