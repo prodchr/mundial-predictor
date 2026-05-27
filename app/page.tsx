@@ -507,9 +507,7 @@ if (currentUser) {
 
   return () => clearInterval(timer);
 }, []);
-  useEffect(() => {
-  if (!profile?.league_id) return;
-
+  
   useEffect(() => {
   if (!profile?.league_id) return;
 
@@ -1589,6 +1587,7 @@ onChange={(e) =>
       m.id === match.id ? { ...m, away_score: e.target.value } : m
     ))}
   />
+  </td>
                       </tr>
                     ))}
                   </tbody>
