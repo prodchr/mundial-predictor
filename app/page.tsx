@@ -185,8 +185,8 @@ function predictionPoints(match: Match, prediction?: Prediction) {
   const actual = match.home_score > match.away_score ? 'H' : match.home_score < match.away_score ? 'A' : 'D';
   const guessed = prediction.pred_home > prediction.pred_away ? 'H' : prediction.pred_home < prediction.pred_away ? 'A' : 'D';
 
-  188  return actual === guessed ? 1 : 0;
-189 }
+  return actual === guessed ? 1 : 0;
+}
 
 function playerBadges(playerId: string, matches: Match[], predictions: Prediction[]) {
   const playerPredictions = predictions.filter((p) => p.user_id === playerId);
