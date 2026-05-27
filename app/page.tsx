@@ -1271,6 +1271,16 @@ onChange={(e) =>
         {tab === 'Chat' && (
   <section style={cardStyle}>
     <h2>League Chat</h2>
+    <button
+  style={{ ...buttonStyle, marginBottom: 12 }}
+  onClick={() => {
+    if (profile?.league_id) {
+      loadLeagueMessages(profile.league_id);
+    }
+  }}
+>
+  Refresh Chat
+</button>
 
     <div style={{ display: 'grid', gap: 10, marginBottom: 16 }}>
       {leagueMessages.map((message) => {
