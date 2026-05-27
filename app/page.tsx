@@ -446,6 +446,35 @@ async function updateLeagueMessage(messageId: string) {
   setEditingText('');
   await loadLeagueMessages(profile.league_id);
 }
+
+  async function toggleReaction(commentId: string, emoji: string) {
+  if (!user) return;
+
+  const existing = reactions.find(
+    (r) =>
+      r.comment_id === commentId &&
+      r.user_id === user.id &&
+      r.reaction === emoji
+  );
+
+  if (existing) {
+    await supabase
+      .from('league_comment_reactions')
+      .delete()
+      .eq('id', existing.id);
+  } else {
+    await supabase
+      .from('league_comment_reactions')
+      .insert({
+        comment_id: commentId,
+        user_id: user.id,
+        reaction: emoji,
+      });
+  }
+
+  await loadReactions();
+}
+  
  async function loadEverything(activeUser?: User | null) {
   const currentUser = activeUser ?? user;
 
@@ -521,6 +550,7 @@ if (currentUser) {
   if (!profile?.league_id) return;
 
   loadLeagueMessages(profile.league_id);
+loadReactions();
 
   const chatTimer = setInterval(() => {
     loadLeagueMessages(profile.league_id!);
@@ -533,6 +563,7 @@ if (currentUser) {
   if (!profile?.league_id) return;
 
   loadLeagueMessages(profile.league_id);
+loadReactions();
 
   const channel = supabase
     .channel('league-chat')
@@ -546,6 +577,7 @@ if (currentUser) {
       },
       () => {
         loadLeagueMessages(profile.league_id);
+loadReactions();
       }
     )
     .subscribe();
