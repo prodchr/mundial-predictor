@@ -546,7 +546,15 @@ if (currentUser) {
     supabase.removeChannel(channel);
   };
 }, [profile?.league_id]);
+useEffect(() => {
+  if (!message) return;
 
+  const messageTimer = setTimeout(() => {
+    setMessage('');
+  }, 3000);
+
+  return () => clearTimeout(messageTimer);
+}, [message]);
 async function login() {
   setMessage('Logging in...');
 
