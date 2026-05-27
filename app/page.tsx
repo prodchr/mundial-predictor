@@ -849,12 +849,15 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
       onChange={(e) => setEmail(e.target.value)}
     />
     <input
-      style={inputStyle}
-      placeholder="Password"
-      type="password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-    />
+  style={inputStyle}
+  placeholder="Password"
+  type="password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') login();
+  }}
+/>
     <button style={buttonStyle} onClick={login}>
       Login
     </button>
@@ -1369,11 +1372,14 @@ onChange={(e) =>
 
     <div style={{ display: 'flex', gap: 10 }}>
       <input
-        style={inputStyle}
-        placeholder="Write a message..."
-        value={chatText}
-        onChange={(e) => setChatText(e.target.value)}
-      />
+  style={inputStyle}
+  placeholder="Write a message..."
+  value={chatText}
+  onChange={(e) => setChatText(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') sendLeagueMessage();
+  }}
+/>
 
       <button style={buttonStyle} onClick={sendLeagueMessage}>
   Send
