@@ -394,6 +394,50 @@ export default function MundialPredictor() {
     kickoff_at: '',
   });
 
+  async function loadLeagueMessages(leagueId: string) {
+  const { data } = await supabase
+    .from('league_comments')
+    .select('*')
+    .eq('league_id', leagueId)
+    .order('created_at', { ascending: true });
+
+  if (data) setLeagueMessages(data);
+}
+
+async function sendLeagueMessage() {
+  if (!profile?.league_id || !user || !chatText.trim()) return;
+
+  const { error } = await supabase.from('league_comments').insert({
+    league_id: profile.league_id,
+    user_id: user.id,
+    comment: chatText.trim(),
+  });
+
+  if (!error) {
+    setChatText('');
+    await loadLeagueMessages(profile.league_id);
+  }
+}
+
+async function deleteLeagueMessage(messageId: string) {
+  if (!profile?.league_id) return;
+
+  await supabase.from('league_comments').delete().eq('id', messageId);
+  await loadLeagueMessages(profile.league_id);
+}
+
+async function updateLeagueMessage(messageId: string) {
+  if (!profile?.league_id || !editingText.trim()) return;
+
+  await supabase
+    .from('league_comments')
+    .update({ comment: editingText.trim() })
+    .eq('id', messageId);
+
+  setEditingMessageId(null);
+  setEditingText('');
+  await loadLeagueMessages(profile.league_id);
+}
  async function loadEverything(activeUser?: User | null) {
   const currentUser = activeUser ?? user;
 
@@ -506,7 +550,9 @@ if (profileResult.data?.league_id) {
     setLeagueName(leagueResult.data.name);
   }
 }
-
+if (profileResult.data?.league_id) {
+  await loadLeagueMessages(profileResult.data.league_id);
+}
 setMessage('');
 }
 
@@ -1225,9 +1271,9 @@ onChange={(e) =>
         onChange={(e) => setChatText(e.target.value)}
       />
 
-      <button style={buttonStyle}>
-        Send
-      </button>
+      <button style={buttonStyle} onClick={sendLeagueMessage}>
+  Send
+</button>
     </div>
   </section>
 )}
