@@ -831,9 +831,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
                 <div style={{ color: '#fbbf24', fontSize: 44, fontWeight: 900 }}>{player.points}</div>
                 <div style={{ color: '#cbd5e1' }}>{player.exacts} exact · {player.submitted} submitted</div>
               </div>
-            ))}
-          </section>
-      <div style={{ ...cardStyle }}>
+            ))}<div style={{ ...cardStyle }}>
   <h2>My League Snapshot</h2>
   <div style={{ display: 'grid', gap: 10, color: '#cbd5e1' }}>
     <div>👤 Your rank: #{leaderboard.findIndex((p) => p.id === user?.id) + 1}</div>
@@ -847,6 +845,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     </div>
   </div>
 </div>
+          </section>
         )}
 
         {tab === 'Fixtures' && (
