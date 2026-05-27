@@ -1396,6 +1396,7 @@ const names = reactions
     return (
       <button
         key={emoji}
+        title={names.map((name) => `@${name}`).join(', ')}
         style={{
           border: 0,
           borderRadius: 999,
@@ -1407,12 +1408,7 @@ const names = reactions
         }}
         onClick={() => toggleReaction(message.id, emoji)}
       >
-        <div>{emoji} {count > 0 ? count : ''}</div>
-{names.length > 0 && (
-  <div style={{ fontSize: 10, marginTop: 2 }}>
-    {names.map((name) => `@${name}`).join(', ')}
-  </div>
-)}
+        {emoji} {count > 0 ? count : ''}
       </button>
     );
   })}
