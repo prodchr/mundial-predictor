@@ -1383,7 +1383,9 @@ onChange={(e) =>
     const count = reactions.filter(
       (r) => r.comment_id === message.id && r.reaction === emoji
     ).length;
-
+const names = reactions
+  .filter((r) => r.comment_id === message.id && r.reaction === emoji)
+  .map((r) => profiles.find((p) => p.id === r.user_id)?.username || 'Unknown');
     const active = reactions.some(
       (r) =>
         r.comment_id === message.id &&
@@ -1405,7 +1407,12 @@ onChange={(e) =>
         }}
         onClick={() => toggleReaction(message.id, emoji)}
       >
-        {emoji} {count > 0 ? count : ''}
+        <div>{emoji} {count > 0 ? count : ''}</div>
+{names.length > 0 && (
+  <div style={{ fontSize: 10, marginTop: 2 }}>
+    {names.map((name) => `@${name}`).join(', ')}
+  </div>
+)}
       </button>
     );
   })}
