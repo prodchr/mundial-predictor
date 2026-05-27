@@ -895,7 +895,13 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
         <nav style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
           {tabs.map((item) => (
-            <button key={item} onClick={() => setTab(item)} style={{ ...buttonStyle, background: tab === item ? '#fbbf24' : 'rgba(255,255,255,.1)', color: tab === item ? '#020617' : '#fff' }}>
+            <button key={item} onClick={() => {
+  setTab(item);
+
+  if (item === 'Chat' && profile?.league_id) {
+    loadLeagueMessages(profile.league_id);
+  }
+}} style={{ ...buttonStyle, background: tab === item ? '#fbbf24' : 'rgba(255,255,255,.1)', color: tab === item ? '#020617' : '#fff' }}>
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </button>
           ))}
