@@ -1576,8 +1576,8 @@ onChange={(e) =>
     style={adminScoreInputStyle}
     value={match.home_score ?? ''}
     onChange={(e) => setMatches(matches.map((m) =>
-     home_score: e.target.value === '' ? null : Number(e.target.value)
-    ))}
+  m.id === match.id ? { ...m, home_score: e.target.value === '' ? null : Number(e.target.value) } : m
+))}
   />
   <span style={{ margin: '0 8px' }}>-</span>
   <input
