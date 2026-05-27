@@ -1378,7 +1378,38 @@ onChange={(e) =>
     </div>
   )}
 </div>
+<div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
+  {['😂', '🔥', '💀', '👀', '😱', '🤡', '😭', '💦'].map((emoji) => {
+    const count = reactions.filter(
+      (r) => r.comment_id === message.id && r.reaction === emoji
+    ).length;
 
+    const active = reactions.some(
+      (r) =>
+        r.comment_id === message.id &&
+        r.reaction === emoji &&
+        r.user_id === user?.id
+    );
+
+    return (
+      <button
+        key={emoji}
+        style={{
+          border: 0,
+          borderRadius: 999,
+          padding: '6px 10px',
+          cursor: 'pointer',
+          background: active ? '#fbbf24' : 'rgba(255,255,255,.12)',
+          color: active ? '#020617' : '#fff',
+          fontWeight: 900,
+        }}
+        onClick={() => toggleReaction(message.id, emoji)}
+      >
+        {emoji} {count > 0 ? count : ''}
+      </button>
+    );
+  })}
+</div>
 {editingMessageId === message.id ? (
   <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
     <input
