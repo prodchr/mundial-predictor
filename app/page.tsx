@@ -365,6 +365,7 @@ export default function MundialPredictor() {
   const [openPlayerMatches, setOpenPlayerMatches] = useState<Record<number, boolean>>({});
   const [now, setNow] = useState(new Date());
   const [leagueMessages, setLeagueMessages] = useState<LeagueChatMessage[]>([]);
+  const [reactions, setReactions] = useState<any[]>([]);
   const [chatText, setChatText] = useState('');
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState('');
