@@ -875,7 +875,7 @@ onChange={(e) =>
 </div>
 
             <div style={{ display: 'grid', gap: 8, minWidth: 120 }}>
-  <div>{locked ? '🔒 Locked' : '🟢 Open'}</div>
+  <div>{locked ? '🔒 Locked' : countdownText(match.kickoff_at, now)}</div>
 
   <div style={{ color: '#fbbf24', fontWeight: 900 }}>
     {predictionPoints(match, prediction)} pts
