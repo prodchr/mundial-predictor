@@ -1108,6 +1108,8 @@ onChange={(e) =>
   </section>
 )}
         {tab === 'Leaderboard' && (
+  <section style={cardStyle}>
+    <h2>Leaderboard</h2>
         {leaderboard.map((player, index) => {
   const badges = playerBadges(player.id, matches, predictions);
 
@@ -1136,6 +1138,7 @@ onChange={(e) =>
     </div>
   );
 })}
+      </section>
   )}
 
         {tab === 'Groups' && (
