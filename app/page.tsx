@@ -1571,8 +1571,9 @@ onChange={(e) =>
                       <tr key={match.id}>
                         <td style={tdStyle}>{match.match_no}</td>
                         <td style={tdStyle}>{match.match_day}</td>
-                        <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
-                        <td style={tdStyle}>
+<td style={{ ...tdStyle, fontWeight: 900 }}>
+  {country(match.home_team).name} vs {country(match.away_team).name}
+</td>                        <td style={tdStyle}>
   <input
     style={adminScoreInputStyle}
     value={match.home_score ?? ''}
