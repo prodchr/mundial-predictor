@@ -511,6 +511,11 @@ if (currentUser) {
   if (!profile?.league_id) return;
 
   const channel = supabase
+    useEffect(() => {
+  if (!profile?.league_id) return;
+
+  loadLeagueMessages(profile.league_id);
+}, [profile?.league_id, tab]);
     .channel('league-chat')
     .on(
       'postgres_changes',
@@ -1271,17 +1276,7 @@ onChange={(e) =>
         {tab === 'Chat' && (
   <section style={cardStyle}>
     <h2>League Chat</h2>
-    <button
-  style={{ ...buttonStyle, marginBottom: 12 }}
-  onClick={() => {
-    if (profile?.league_id) {
-      loadLeagueMessages(profile.league_id);
-    }
-  }}
->
-  Refresh Chat
-</button>
-
+    
     <div style={{ display: 'grid', gap: 10, marginBottom: 16 }}>
       {leagueMessages.map((message) => {
         const sender = profiles.find((p) => p.id === message.user_id);
