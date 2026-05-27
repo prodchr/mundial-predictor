@@ -16,6 +16,7 @@ type Profile = {
   email: string;
   username: string;
   role: 'player' | 'admin';
+  league_id: string | null;
 };
 
 type Match = {
@@ -266,6 +267,7 @@ const thStyle: React.CSSProperties = {
 export default function MundialPredictor() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [leagueName, setLeagueName] = useState('');
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
