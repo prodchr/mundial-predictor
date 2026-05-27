@@ -121,6 +121,36 @@ function country(code: string) {
   return map[code] || { name: code, flag: '' }
 }
 function countdownText(kickoffAt: string, now: Date) {
+  function predictionDistribution(match: Match, predictions: Prediction[]) {
+  const relevant = predictions.filter(
+    (p) =>
+      p.match_id === match.id &&
+      p.pred_home !== null &&
+      p.pred_away !== null
+  );
+
+  if (!relevant.length) {
+    return { home: 0, draw: 0, away: 0 };
+  }
+
+  let home = 0;
+  let draw = 0;
+  let away = 0;
+
+  relevant.forEach((p) => {
+    if (p.pred_home > p.pred_away) home++;
+    else if (p.pred_home < p.pred_away) away++;
+    else draw++;
+  });
+
+  const total = relevant.length;
+
+  return {
+    home: Math.round((home / total) * 100),
+    draw: Math.round((draw / total) * 100),
+    away: Math.round((away / total) * 100),
+  };
+}
   const diff = new Date(kickoffAt).getTime() - now.getTime();
 
   if (diff <= 0) return 'Locked';
@@ -898,6 +928,7 @@ onChange={(e) =>
     <div style={{ display: 'grid', gap: 14 }}>
       {matches.map((match) => {
         const visible = isLocked(match);
+        const distribution = predictionDistribution(match, predictions);
         const playerList = profiles.filter((player) => player.role !== 'admin');
         const submittedCount = playerList.filter((player) =>
           isPredictionComplete(predictionFor(player.id, match.id))
@@ -953,6 +984,22 @@ onChange={(e) =>
             </button>
 
             {openPlayerMatches[match.id] && (
+            {visible && (
+  <div
+    style={{
+      marginTop: 12,
+      padding: 12,
+      borderRadius: 14,
+      background: 'rgba(251,191,36,.12)',
+      fontWeight: 700,
+    }}
+  >
+    Prediction distribution:
+    <div style={{ marginTop: 8 }}>
+      {country(match.home_team).name} win: {distribution.home}% · Draw: {distribution.draw}% · {country(match.away_team).name} win: {distribution.away}%
+    </div>
+  </div>
+)}
               <div
                 style={{
                   marginTop: 12,
