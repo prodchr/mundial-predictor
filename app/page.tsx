@@ -385,9 +385,21 @@ async function login() {
     return;
   }
 
-  setUser(data.user);
-  setProfile(profileResult.data);
-  setMessage('');
+setProfile(profileResult.data);
+
+if (profileResult.data?.league_id) {
+  const leagueResult = await supabase
+    .from('leagues')
+    .select('name')
+    .eq('id', profileResult.data.league_id)
+    .single();
+
+  if (leagueResult.data) {
+    setLeagueName(leagueResult.data.name);
+  }
+}
+
+setMessage('');
 }
 
   async function signUp() {
@@ -699,7 +711,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap', marginBottom: 18 }}>
           <div>
             <h1 style={{ fontSize: 36, margin: '4px 0' }}>Score Predictor</h1>
-            <div style={{ color: '#cbd5e1' }}>@{profile.username} · {profile.role === 'admin' ? 'Admin' : 'Player'}</div>
+            <div style={{ color: '#cbd5e1' }}>@{profile.username} · {profile.role === 'admin' ? 'Admin' : 'Player'} · {leagueName}</div>
           </div>
           <button style={{ ...buttonStyle, background: '#334155', color: '#fff' }} onClick={logout}>Logout</button>
         </header>
