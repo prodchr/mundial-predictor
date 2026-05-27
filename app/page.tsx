@@ -1574,9 +1574,22 @@ onChange={(e) =>
                         <td style={{ ...tdStyle, fontWeight: 900 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>   {country(match.home_team).flag && (     <img src={country(match.home_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.home_team).name}</span>    <span>vs</span>    {country(match.away_team).flag && (     <img src={country(match.away_team).flag} width={20} height={14} alt="" />   )}   <span>{country(match.away_team).name}</span> </div></td>
                       </div></td>
                         <td style={tdStyle}>
-                          <input style={adminScoreInputStyle} value={match.home_score ?? ''} onChange={(e) => saveScore(match, 'home_score', e.target.value)} />
-                          <span style={{ margin: '0 8px' }}>-</span>
-                          <input style={adminScoreInputStyle} value={match.away_score ?? ''} onChange={(e) => saveScore(match, 'away_score', e.target.value)} />
+  <input
+    style={adminScoreInputStyle}
+    value={match.home_score ?? ''}
+    onChange={(e) => setMatches(matches.map((m) =>
+      m.id === match.id ? { ...m, home_score: e.target.value } : m
+    ))}
+  />
+  <span style={{ margin: '0 8px' }}>-</span>
+  <input
+    style={adminScoreInputStyle}
+    value={match.away_score ?? ''}
+    onChange={(e) => setMatches(matches.map((m) =>
+      m.id === match.id ? { ...m, away_score: e.target.value } : m
+    ))}
+  />
+</td>
                         </td>
                       </tr>
                     ))}
