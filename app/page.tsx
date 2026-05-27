@@ -507,6 +507,29 @@ if (currentUser) {
 
   return () => clearInterval(timer);
 }, []);
+  useEffect(() => {
+  if (!profile?.league_id) return;
+
+  const channel = supabase
+    .channel('league-chat')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'league_comments',
+        filter: `league_id=eq.${profile.league_id}`,
+      },
+      () => {
+        loadLeagueMessages(profile.league_id);
+      }
+    )
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(channel);
+  };
+}, [profile?.league_id]);
 
 async function login() {
   setMessage('Logging in...');
