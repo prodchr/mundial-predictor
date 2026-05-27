@@ -404,6 +404,13 @@ export default function MundialPredictor() {
 
   if (data) setLeagueMessages(data);
 }
+  async function loadReactions() {
+  const { data } = await supabase
+    .from('league_comment_reactions')
+    .select('*');
+
+  if (data) setReactions(data);
+}
 
 async function sendLeagueMessage() {
   if (!profile?.league_id || !user || !chatText.trim()) return;
