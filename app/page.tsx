@@ -1392,7 +1392,7 @@ onChange={(e) =>
   <section style={{ display: 'grid', gap: 16 }}>
     <h2>Knockout Bracket</h2>
 
-    {['Round of 32', 'Round of 16', 'Quarter-finals', 'Semi-finals', 'Final'].map((round) => (
+    {['Round of 32', 'Round of 16', 'Quarter-finals', 'Semi-finals', 'Third place', 'Final'].map((round) => (
       <div key={round} style={cardStyle}>
         <h2 style={{ color: '#fbbf24' }}>{round}</h2>
 
@@ -1423,6 +1423,27 @@ onChange={(e) =>
 
                 {profile.role === 'admin' && (
   <div style={{ display: 'grid', gap: 8, marginTop: 10 }}>
+    <input
+  style={inputStyle}
+  placeholder="Home team code, e.g. BRA"
+  value={match.home_team ?? ''}
+  onChange={(e) =>
+    updateKnockoutMatch(match.id, {
+      home_team: e.target.value.toUpperCase() || null,
+    })
+  }
+/>
+
+<input
+  style={inputStyle}
+  placeholder="Away team code, e.g. FRA"
+  value={match.away_team ?? ''}
+  onChange={(e) =>
+    updateKnockoutMatch(match.id, {
+      away_team: e.target.value.toUpperCase() || null,
+    })
+  }
+/>
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
       <input
         style={adminScoreInputStyle}
