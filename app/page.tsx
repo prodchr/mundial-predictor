@@ -1421,6 +1421,92 @@ onChange={(e) =>
                   </div>
                 )}
 
+                {profile.role === 'admin' && (
+  <div style={{ display: 'grid', gap: 8, marginTop: 10 }}>
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+      <input
+        style={adminScoreInputStyle}
+        value={match.home_score ?? ''}
+        placeholder="H"
+        onChange={(e) =>
+          updateKnockoutMatch(match.id, {
+            home_score: e.target.value === '' ? null : Number(e.target.value),
+          })
+        }
+      />
+
+      <span>-</span>
+
+      <input
+        style={adminScoreInputStyle}
+        value={match.away_score ?? ''}
+        placeholder="A"
+        onChange={(e) =>
+          updateKnockoutMatch(match.id, {
+            away_score: e.target.value === '' ? null : Number(e.target.value),
+          })
+        }
+      />
+    </div>
+
+    <label>
+      <input
+        type="checkbox"
+        checked={!!match.extra_time}
+        onChange={(e) => updateKnockoutMatch(match.id, { extra_time: e.target.checked })}
+      />{' '}
+      Extra time
+    </label>
+
+    <label>
+      <input
+        type="checkbox"
+        checked={!!match.penalties}
+        onChange={(e) => updateKnockoutMatch(match.id, { penalties: e.target.checked })}
+      />{' '}
+      Penalties
+    </label>
+
+    {match.penalties && (
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+        <input
+          style={adminScoreInputStyle}
+          value={match.home_penalties ?? ''}
+          placeholder="HP"
+          onChange={(e) =>
+            updateKnockoutMatch(match.id, {
+              home_penalties: e.target.value === '' ? null : Number(e.target.value),
+            })
+          }
+        />
+
+        <span>-</span>
+
+        <input
+          style={adminScoreInputStyle}
+          value={match.away_penalties ?? ''}
+          placeholder="AP"
+          onChange={(e) =>
+            updateKnockoutMatch(match.id, {
+              away_penalties: e.target.value === '' ? null : Number(e.target.value),
+            })
+          }
+        />
+      </div>
+    )}
+
+    <select
+      style={inputStyle}
+      value={match.winner ?? ''}
+      onChange={(e) => updateKnockoutMatch(match.id, { winner: e.target.value || null })}
+    >
+      <option value="">Select winner</option>
+      {match.home_team && <option value={match.home_team}>{country(match.home_team).name}</option>}
+      {match.away_team && <option value={match.away_team}>{country(match.away_team).name}</option>}
+    </select>
+  </div>
+)}
+
                 {match.winner && (
                   <div style={{ color: '#22c55e', marginTop: 6, fontWeight: 900 }}>
                     Winner: {country(match.winner).name}
