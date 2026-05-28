@@ -1008,7 +1008,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap', marginBottom: 18 }}>
           <div>
             <h1 style={{ fontSize: 36, margin: '4px 0' }}>Score Predictor</h1>
-            <div style={{ color: '#cbd5e1' }}>@{profile.username} · {profile.role === 'admin' ? 'Admin' : 'Player'} · {leagueName}</div>
+            <div style={{ color: '#cbd5e1' }}>{profile.username} · {profile.role === 'admin' ? 'Admin' : 'Player'} · {leagueName}</div>
           </div>
           <button style={{ ...buttonStyle, background: '#334155', color: '#fff' }} onClick={logout}>Logout</button>
         </header>
@@ -1282,7 +1282,7 @@ onChange={(e) =>
                         background: 'rgba(255,255,255,.08)',
                       }}
                     >
-                      <b>@{player.username}</b>
+                      <b>{player.username}</b>
                       <br />
 
                       {isPredictionComplete(prediction)
@@ -1320,7 +1320,7 @@ onChange={(e) =>
       }}
     >
       <div>
-        <b>{index + 1}. @{player.username}</b>
+        <b>{index + 1}. {player.username}</b>
 
         {badges.length > 0 && (
           <div style={{ marginTop: 6, color: '#cbd5e1', fontSize: 14 }}>
@@ -1563,7 +1563,7 @@ onChange={(e) =>
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
-  <b>@{sender?.username || 'Unknown'}</b>
+  <b>{sender?.username || 'Unknown'}</b>
 
   {(message.user_id === user?.id || profile?.role === 'admin') && (
     <div style={{ display: 'flex', gap: 8 }}>
