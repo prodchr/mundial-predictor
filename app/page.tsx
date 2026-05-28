@@ -1521,7 +1521,7 @@ onChange={(e) =>
       value={match.winner ?? ''}
       onChange={(e) => updateKnockoutMatch(match.id, { winner: e.target.value || null })}
     >
-      <option value="">Select winner</option>
+      <option value="">Clear winner</option>
       {match.home_team && <option value={match.home_team}>{country(match.home_team).name}</option>}
       {match.away_team && <option value={match.away_team}>{country(match.away_team).name}</option>}
     </select>
