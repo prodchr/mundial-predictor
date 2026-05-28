@@ -771,6 +771,23 @@ if (leagueResult.error || !leagueResult.data) {
       await loadEverything();
     }
   }
+
+  async function updateKnockoutMatch(matchId: number, payload: Partial<KnockoutMatch>) {
+  if (profile?.role !== 'admin') return;
+
+  const { error } = await supabase
+    .from('knockout_bracket')
+    .update(payload)
+    .eq('id', matchId);
+
+  if (error) {
+    setMessage(error.message);
+    return;
+  }
+
+  await loadKnockout();
+}
+  
 async function updateMatch(match: Match) {
   if (profile?.role !== 'admin') return;
 
