@@ -999,7 +999,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     );
   }
 
-  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Knockout', 'Chat', 'Instructions'];
+  const tabs = const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Chat', 'Instructions'];
   if (profile.role === 'admin') tabs.push('Admin')
 
   return (
