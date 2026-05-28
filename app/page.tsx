@@ -1519,7 +1519,11 @@ onChange={(e) =>
     <select
       style={inputStyle}
       value={match.winner ?? ''}
-      onChange={(e) => updateKnockoutMatch(match.id, { winner: e.target.value || null })}
+      onChange={(e) =>
+  updateKnockoutMatch(match.id, {
+    winner: e.target.value === '' ? null : e.target.value,
+  })
+}
     >
       <option value="">Clear winner</option>
       {match.home_team && <option value={match.home_team}>{country(match.home_team).name}</option>}
