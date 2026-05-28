@@ -47,6 +47,23 @@ type LeagueChatMessage = {
   created_at: string;
 };
 
+type KnockoutMatch = {
+  id: number;
+  round: string;
+  match_no: number;
+  home_team: string | null;
+  away_team: string | null;
+  winner: string | null;
+  next_match_no: number | null;
+  next_slot: string | null;
+  home_score: number | null;
+  away_score: number | null;
+  extra_time: boolean;
+  penalties: boolean;
+  home_penalties: number | null;
+  away_penalties: number | null;
+};
+
 function isLocked(match: Match) {
   return new Date() >= new Date(match.kickoff_at);
 }
@@ -378,6 +395,7 @@ export default function MundialPredictor() {
   const [editingText, setEditingText] = useState('');
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
+  const [knockoutMatches, setKnockoutMatches] = useState<KnockoutMatch[]>([]);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [draftPredictions, setDraftPredictions] = useState<
   Record<number, { pred_home: string; pred_away: string }>
@@ -418,6 +436,15 @@ export default function MundialPredictor() {
     .select('*');
 
   if (data) setReactions(data);
+}
+
+  async function loadKnockout() {
+  const { data } = await supabase
+    .from('knockout_bracket')
+    .select('*')
+    .order('match_no');
+
+  if (data) setKnockoutMatches(data);
 }
 
 async function sendLeagueMessage() {
@@ -507,6 +534,7 @@ async function updateLeagueMessage(messageId: string) {
   setMatches(matchesResult.data || []);
   setPredictions(predictionsResult.data || []);
   setProfiles(profilesResult.data || []);
+  await loadKnockout();
 
 if (currentUser) {
   const profileResult = await supabase
