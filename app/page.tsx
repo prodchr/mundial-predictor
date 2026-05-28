@@ -400,9 +400,10 @@ export default function MundialPredictor() {
     .from('league_comments')
     .select('*')
     .eq('league_id', leagueId)
-    .order('created_at', { ascending: true });
+    .order('created_at', { ascending: false })
+.limit(50);
 
-  if (data) setLeagueMessages(data);
+  if (data) setLeagueMessages(data.reverse());
 }
   async function loadReactions() {
   const { data } = await supabase
