@@ -982,7 +982,7 @@ const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     );
   }
 
-  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Chat', 'Instructions'];
+  const tabs = ['Dashboard', 'Fixtures', 'Predictions', 'Players', 'Leaderboard', 'Groups', 'Knockout', 'Chat', 'Instructions'];
   if (profile.role === 'admin') tabs.push('Admin')
 
   return (
@@ -1370,6 +1370,52 @@ onChange={(e) =>
             ))}
           </section>
         )}
+
+        {tab === 'Knockout' && (
+  <section style={{ display: 'grid', gap: 16 }}>
+    <h2>Knockout Bracket</h2>
+
+    {['Round of 32', 'Round of 16', 'Quarter-finals', 'Semi-finals', 'Final'].map((round) => (
+      <div key={round} style={cardStyle}>
+        <h2 style={{ color: '#fbbf24' }}>{round}</h2>
+
+        <div style={{ display: 'grid', gap: 12 }}>
+          {knockoutMatches
+            .filter((match) => match.round === round)
+            .map((match) => (
+              <div key={match.id} style={{ padding: 12, borderRadius: 16, background: 'rgba(255,255,255,.08)' }}>
+                <b>Match {match.match_no}</b>
+
+                <div style={{ marginTop: 8 }}>
+                  {match.home_team ? country(match.home_team).name : 'TBD'}
+                  {' '}
+                  {match.home_score ?? '-'}
+                  {' - '}
+                  {match.away_score ?? '-'}
+                  {' '}
+                  {match.away_team ? country(match.away_team).name : 'TBD'}
+                </div>
+
+                {match.extra_time && <div style={{ color: '#cbd5e1', marginTop: 4 }}>After extra time</div>}
+
+                {match.penalties && (
+                  <div style={{ color: '#cbd5e1', marginTop: 4 }}>
+                    Penalties: {match.home_penalties ?? '-'} - {match.away_penalties ?? '-'}
+                  </div>
+                )}
+
+                {match.winner && (
+                  <div style={{ color: '#22c55e', marginTop: 6, fontWeight: 900 }}>
+                    Winner: {country(match.winner).name}
+                  </div>
+                )}
+              </div>
+            ))}
+        </div>
+      </div>
+    ))}
+  </section>
+)}
 
         {tab === 'Chat' && (
   <section style={cardStyle}>
