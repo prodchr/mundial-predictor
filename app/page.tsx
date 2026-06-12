@@ -807,25 +807,6 @@ if (leagueResult.error || !leagueResult.data) {
   setMessage('Result saved ✅');
   await loadEverything();
 }
-
-  async function saveResult(match: Match) {
-  const { error } = await supabase
-    .from('matches')
-    .update({
-      home_score: match.home_score,
-      away_score: match.away_score,
-    })
-    .eq('id', match.id);
-
-  if (error) {
-    setMessage(error.message);
-    return;
-  }
-
-  setMessage('Result saved ✅');
-
-  await loadEverything();
-}
   
 async function updateMatch(match: Match) {
   if (profile?.role !== 'admin') return;
