@@ -744,6 +744,38 @@ if (leagueResult.error || !leagueResult.data) {
     await loadEverything();
   }
 
+  async function saveFullPrediction(match: Match) {
+  if (!user || isLocked(match)) return;
+
+  const draft = draftPredictions[match.id];
+  const existing = predictionFor(user.id, match.id);
+
+  const homeValue = draft?.pred_home ?? String(existing?.pred_home ?? '');
+  const awayValue = draft?.pred_away ?? String(existing?.pred_away ?? '');
+
+  if (homeValue === '' || awayValue === '') {
+    setMessage('Enter both scores');
+    return;
+  }
+
+  const payload = {
+    user_id: user.id,
+    match_id: match.id,
+    pred_home: Number(homeValue),
+    pred_away: Number(awayValue),
+    updated_at: new Date().toISOString(),
+  };
+
+  if (existing) {
+    await supabase.from('predictions').update(payload).eq('id', existing.id);
+  } else {
+    await supabase.from('predictions').insert(payload);
+  }
+
+  setMessage('Prediction submitted ✅');
+  await loadEverything();
+}
+
   async function saveScore(match: Match, field: 'home_score' | 'away_score', value: string) {
     if (profile?.role !== 'admin') return;
     if (value !== '' && !/^\d{0,2}$/.test(value)) return;
@@ -1179,7 +1211,7 @@ onChange={(e) =>
   opacity: locked ? 0.6 : 1,
   minWidth: 95,
 }}
-  onClick={async () => {   const draft = draftPredictions[match.id];    await savePrediction(match, 'pred_home', draft?.pred_home ?? String(prediction?.pred_home ?? ''));   await savePrediction(match, 'pred_away', draft?.pred_away ?? String(prediction?.pred_away ?? ''));    setMessage('Prediction submitted ✅'); }}
+  onClick={() => saveFullPrediction(match)}
 >
   Submit
 </button>
