@@ -787,6 +787,45 @@ if (leagueResult.error || !leagueResult.data) {
 
   await loadKnockout();
 }
+
+  async function saveResult(match: Match) {
+  if (profile?.role !== 'admin') return;
+
+  const { error } = await supabase
+    .from('matches')
+    .update({
+      home_score: match.home_score,
+      away_score: match.away_score,
+    })
+    .eq('id', match.id);
+
+  if (error) {
+    setMessage(error.message);
+    return;
+  }
+
+  setMessage('Result saved ✅');
+  await loadEverything();
+}
+
+  async function saveResult(match: Match) {
+  const { error } = await supabase
+    .from('matches')
+    .update({
+      home_score: match.home_score,
+      away_score: match.away_score,
+    })
+    .eq('id', match.id);
+
+  if (error) {
+    setMessage(error.message);
+    return;
+  }
+
+  setMessage('Result saved ✅');
+
+  await loadEverything();
+}
   
 async function updateMatch(match: Match) {
   if (profile?.role !== 'admin') return;
@@ -1897,6 +1936,16 @@ const names = reactions
       m.id === match.id ? { ...m, away_score: e.target.value === '' ? null : Number(e.target.value) } : m
     ))}
   />
+  <button
+  style={{
+    ...buttonStyle,
+    marginLeft: 8,
+    padding: '6px 10px',
+  }}
+  onClick={() => saveResult(match)}
+>
+  Save
+</button>
   </td>
                       </tr>
                     ))}
