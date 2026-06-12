@@ -1211,7 +1211,10 @@ onChange={(e) =>
   opacity: locked ? 0.6 : 1,
   minWidth: 95,
 }}
-  onClick={() => saveFullPrediction(match)}
+  onMouseDown={(e) => {
+  e.preventDefault();
+  saveFullPrediction(match);
+}}
 >
   Submit
 </button>
